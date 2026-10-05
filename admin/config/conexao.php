@@ -1,11 +1,16 @@
 <?php
 define('servidor', 'localhost');
-define('usuario','root');
-define('senha', ' ');
+define('usuario', 'root');
+define('senha', '3621');
 define('bd', 'loja_games');
-try{
-    $pdo = new PDO('mysql:host='.serivodr.'/dbname='.bd,usuario,senha);
-} catch(PDOException $e){
-    echo 'Erro! Nao foi possivel conectar ao banco. Erro: ' . $e -> getMessage();
+
+try {
+    $pdo = new PDO(
+        'mysql:host=' . servidor . ';dbname=' . bd . ';charset=utf8mb4',
+        usuario,
+        senha,
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+    );
+} catch (PDOException $e) {
+    die('Erro! Nao foi possivel conectar ao banco. Erro: ' . $e->getMessage());
 }
-?>

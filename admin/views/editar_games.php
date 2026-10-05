@@ -1,0 +1,101 @@
+<?php
+require_once '../models/games.php';
+
+$game = new Game();
+$dados = null;
+
+if (isset($_GET['id'])) {
+    $dados = $game->buscarGamePorId($_GET['id']);
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $editar = new Game([
+        'id' => $_POST['id'],
+        'titulo' => $_POST['titulo'],
+        'descricao' => $_POST['descricao'],
+        'preco' => $_POST['preco'],
+        'estoque' => $_POST['estoque'],
+        'categoria' => $_POST['categoria'],
+        'imagem' => $_POST['imagem'] // temporariamente mantém a imagem atual
+    ]);
+    if ($editar->editarGame()) {
+        echo "<script>alert('Jogo editado com sucesso!');
+        window.location.href = 'ver_games.php';</script>";
+        exit;
+    } else {
+        echo "Erro ao editar!";
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Jogo</title>
+    <link rel="stylesheet" href="../public/css/style.css">
+</head>
+<body>
+    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+    <header class="site-header">
+        <nav class="nav" aria-label="Navegação administrativa">
+            <a class="brand" href="../../index.php"><span class="brand-mark">LG</span> Loja Games</a>
+            <div class="nav-links"><a class="nav-link" href="ver_games.php">Voltar ao catálogo</a></div>
+        </nav>
+    </header>
+
+    <main class="container page" id="conteudo">
+        <?php if ($dados): ?>
+            <div class="form-layout">
+                <section>
+                    <h1 class="page-title">Editar jogo</h1>
+                    <p class="page-intro">Atualize as informações de <?= htmlspecialchars($dados['titulo'], ENT_QUOTES, 'UTF-8') ?>.</p>
+                </section>
+                <section class="form-card">
+                    <form method="POST">
+                        <input type="hidden" name="id" value="<?= (int) $dados['id'] ?>">
+                        <div class="form-grid">
+                            <div class="field field-full">
+                                <label for="titulo">Título</label>
+                                <input id="titulo" type="text" name="titulo" value="<?= htmlspecialchars($dados['titulo'], ENT_QUOTES, 'UTF-8') ?>" required>
+                            </div>
+                            <div class="field field-full">
+                                <label for="descricao">Descrição</label>
+                                <textarea id="descricao" name="descricao" rows="4" required><?= htmlspecialchars($dados['descricao'], ENT_QUOTES, 'UTF-8') ?></textarea>
+                            </div>
+                            <div class="field">
+                                <label for="preco">Preço</label>
+                                <input id="preco" type="number" step="0.01" min="0" name="preco" value="<?= htmlspecialchars((string) $dados['preco'], ENT_QUOTES, 'UTF-8') ?>" required>
+                            </div>
+                            <div class="field">
+                                <label for="estoque">Estoque</label>
+                                <input id="estoque" type="number" min="0" name="estoque" value="<?= (int) $dados['estoque'] ?>" required>
+                            </div>
+                            <div class="field field-full">
+                                <label for="categoria">Categoria</label>
+                                <input id="categoria" type="text" name="categoria" value="<?= htmlspecialchars($dados['categoria'], ENT_QUOTES, 'UTF-8') ?>" required>
+                            </div>
+                            <div class="field field-full">
+                                <label for="imagem-atual">Imagem atual</label>
+                                <input id="imagem-atual" type="text" value="<?= htmlspecialchars($dados['imagem'], ENT_QUOTES, 'UTF-8') ?>" readonly>
+                                <input type="hidden" name="imagem" value="<?= htmlspecialchars($dados['imagem'], ENT_QUOTES, 'UTF-8') ?>">
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit">Salvar alterações</button>
+                            <a class="button button-secondary" href="ver_games.php">Cancelar</a>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        <?php else: ?>
+            <div class="empty-state">
+                <h1>Jogo não encontrado</h1>
+                <p>O item solicitado não existe ou foi removido.</p>
+                <a class="button" href="ver_games.php">Voltar ao catálogo</a>
+            </div>
+        <?php endif; ?>
+    </main>
+</body>
+</html>

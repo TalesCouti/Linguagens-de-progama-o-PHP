@@ -1,0 +1,86 @@
+{
+  "admin/config/conexao.php": {
+    "mtime": 1791132616.6390915,
+    "seen": 1791226276.73815,
+    "ast_hash": "94fdafae173eefed9703cf69f7e27965",
+    "semantic_hash": "94fdafae173eefed9703cf69f7e27965"
+  },
+  "admin/controllers/deletar_game.php": {
+    "mtime": 1791143356.5328825,
+    "seen": 1791226276.7381563,
+    "ast_hash": "cd6c061edca35e694ce5782599ee9e8e",
+    "semantic_hash": "cd6c061edca35e694ce5782599ee9e8e"
+  },
+  "admin/controllers/deletar_usuario.php": {
+    "mtime": 1791143355.8912797,
+    "seen": 1791226276.7381592,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "admin/views/cadastrar_game.php": {
+    "mtime": 1791132616.6423464,
+    "seen": 1791226276.738161,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "admin/views/cadastrar_usuario.php": {
+    "mtime": 1791132616.6423464,
+    "seen": 1791226276.738163,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "admin/views/editar_game.php": {
+    "mtime": 1791143582.661445,
+    "seen": 1791226276.7381644,
+    "ast_hash": "851299ae1b5563a8a8753846ca0c47da",
+    "semantic_hash": "851299ae1b5563a8a8753846ca0c47da"
+  },
+  "admin/views/editar_usuario.php": {
+    "mtime": 1791132616.64327,
+    "seen": 1791226276.7381666,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "admin/views/gerenciar_games.php": {
+    "mtime": 1791132616.64327,
+    "seen": 1791226276.738168,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "admin/views/ver_games.php": {
+    "mtime": 1791132616.64327,
+    "seen": 1791226276.7381697,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "admin/views/ver_usuarios.php": {
+    "mtime": 1791132616.64327,
+    "seen": 1791226276.7381713,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "index.php": {
+    "mtime": 1791132616.6446326,
+    "seen": 1791226276.738173,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "login.php": {
+    "mtime": 1791132616.6451766,
+    "seen": 1791226276.7381787,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "testar_conexao.php": {
+    "mtime": 1791132616.6451766,
+    "seen": 1791226276.7381806,
+    "ast_hash": "dba53fd8a2da9a561b7a4d2ee456f33c",
+    "semantic_hash": "dba53fd8a2da9a561b7a4d2ee456f33c"
+  },
+  "banco de dados/schema.txt": {
+    "mtime": 1791225753.1797264,
+    "seen": 1791226276.7381823,
+    "ast_hash": "8e644097d6b5875f308cb55ade0270dc",
+    "semantic_hash": "8e644097d6b5875f308cb55ade0270dc"
+  }
+}

@@ -1,0 +1,87 @@
+<?php
+require_once __DIR__ . '/../models/games.php';
+
+$gameModel = new Game();
+$games = $gameModel->listarGames();
+
+function h(string $value): string
+{
+    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar jogos | Loja Games</title>
+    <link rel="stylesheet" href="../public/css/style.css">
+</head>
+<body>
+    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+    <header class="site-header">
+        <nav class="nav" aria-label="Navegação administrativa">
+            <a class="brand" href="../../index.php"><span class="brand-mark">LG</span> Loja Games</a>
+            <div class="nav-links">
+                <a class="nav-link" href="../../index.php">Ver loja</a>
+                <a class="nav-link" aria-current="page" href="ver_games.php">Jogos</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container page" id="conteudo">
+        <header class="page-header">
+            <div>
+                <h1 class="page-title">Catálogo de jogos</h1>
+                <p class="page-intro">Acompanhe preços, estoque e informações dos jogos cadastrados.</p>
+            </div>
+            <a class="button" href="cadastrar_game.php">Cadastrar jogo</a>
+        </header>
+
+        <?php if (isset($_GET['deletado'])): ?>
+            <div class="message" role="status">Jogo excluído com sucesso.</div>
+        <?php endif; ?>
+
+        <?php if ($games): ?>
+            <div class="table-shell">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Jogo</th>
+                            <th>Preço</th>
+                            <th>Estoque</th>
+                            <th>Categoria</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($games as $game): ?>
+                            <tr>
+                                <td>
+                                    <div class="table-title"><?= h($game['titulo']) ?></div>
+                                    <div class="table-description"><?= h($game['descricao'] ?: 'Sem descrição') ?></div>
+                                </td>
+                                <td class="price">R$ <?= number_format((float) $game['preco'], 2, ',', '.') ?></td>
+                                <td><span class="stock"><?= (int) $game['estoque'] ?> unidades</span></td>
+                                <td><span class="category"><?= h($game['categoria'] ?: 'Sem categoria') ?></span></td>
+                                <td>
+                                    <div class="row-actions">
+                                        <a class="button button-secondary" href="editar_games.php?id=<?= (int) $game['id'] ?>">Editar</a>
+                                        <a class="button button-danger" href="../controllers/deletar_game.php?id=<?= (int) $game['id'] ?>" onclick="return confirm('Deseja excluir este jogo?')">Excluir</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php else: ?>
+            <div class="empty-state">
+                <h2>Nenhum jogo cadastrado</h2>
+                <p>Comece adicionando o primeiro título ao catálogo.</p>
+                <a class="button" href="cadastrar_game.php">Cadastrar jogo</a>
+            </div>
+        <?php endif; ?>
+    </main>
+</body>
+</html>
