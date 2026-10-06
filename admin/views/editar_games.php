@@ -1,29 +1,46 @@
 <?php
 require_once '../models/games.php';
+require_once '../config/imagens.php';
 
 $game = new Game();
 $dados = null;
+$mensagem = '';
 
 if (isset($_GET['id'])) {
     $dados = $game->buscarGamePorId($_GET['id']);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $editar = new Game([
-        'id' => $_POST['id'],
-        'titulo' => $_POST['titulo'],
-        'descricao' => $_POST['descricao'],
-        'preco' => $_POST['preco'],
-        'estoque' => $_POST['estoque'],
-        'categoria' => $_POST['categoria'],
-        'imagem' => $_POST['imagem'] // temporariamente mantém a imagem atual
-    ]);
-    if ($editar->editarGame()) {
-        echo "<script>alert('Jogo editado com sucesso!');
-        window.location.href = 'ver_games.php';</script>";
+    try {
+        $id = (int) ($_POST['id'] ?? 0);
+        $dadosAtuais = $game->buscarGamePorId($id);
+
+        if (!$dadosAtuais) {
+            throw new RuntimeException('O jogo informado não foi encontrado.');
+        }
+
+        $novaImagem = salvarImagemGame($_FILES['imagem'] ?? []);
+        $imagemNome = $novaImagem ?? ($dadosAtuais['imagem'] ?? '');
+
+        $editar = new Game([
+            'id' => $id,
+            'titulo' => $_POST['titulo'],
+            'descricao' => $_POST['descricao'],
+            'preco' => $_POST['preco'],
+            'estoque' => $_POST['estoque'],
+            'categoria' => $_POST['categoria'],
+            'imagem' => $imagemNome,
+        ]);
+
+        if (!$editar->editarGame()) {
+            throw new RuntimeException('Não foi possível atualizar o jogo.');
+        }
+
+        header('Location: ver_games.php?editado=1');
         exit;
-    } else {
-        echo "Erro ao editar!";
+    } catch (RuntimeException $e) {
+        $mensagem = $e->getMessage();
+        $dados = $game->buscarGamePorId((int) ($_POST['id'] ?? 0));
     }
 }
 ?>
@@ -53,7 +70,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <p class="page-intro">Atualize as informações de <?= htmlspecialchars($dados['titulo'], ENT_QUOTES, 'UTF-8') ?>.</p>
                 </section>
                 <section class="form-card">
-                    <form method="POST">
+                    <?php if ($mensagem !== ''): ?>
+                        <div class="message message-error" role="alert"><?= htmlspecialchars($mensagem, ENT_QUOTES, 'UTF-8') ?></div>
+                    <?php endif; ?>
+                    <form method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="<?= (int) $dados['id'] ?>">
                         <div class="form-grid">
                             <div class="field field-full">
@@ -77,9 +97,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <input id="categoria" type="text" name="categoria" value="<?= htmlspecialchars($dados['categoria'], ENT_QUOTES, 'UTF-8') ?>" required>
                             </div>
                             <div class="field field-full">
-                                <label for="imagem-atual">Imagem atual</label>
-                                <input id="imagem-atual" type="text" value="<?= htmlspecialchars($dados['imagem'], ENT_QUOTES, 'UTF-8') ?>" readonly>
-                                <input type="hidden" name="imagem" value="<?= htmlspecialchars($dados['imagem'], ENT_QUOTES, 'UTF-8') ?>">
+                                <label for="imagem">Imagem do jogo</label>
+                                <img class="image-preview" src="../public/imagens/<?= rawurlencode(imagemGameOuPlaceholder($dados['imagem'] ?? '')) ?>" alt="Imagem atual de <?= htmlspecialchars($dados['titulo'], ENT_QUOTES, 'UTF-8') ?>">
+                                <input id="imagem" type="file" name="imagem" accept="image/jpeg,image/png,image/webp">
+                                <p class="field-help">Opcional. Escolha um arquivo somente se quiser substituir a imagem atual.</p>
                             </div>
                         </div>
                         <div class="form-actions">

@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../models/games.php';
+require_once __DIR__ . '/../config/imagens.php';
 
 $gameModel = new Game();
 $games = $gameModel->listarGames();
@@ -40,6 +41,8 @@ function h(string $value): string
 
         <?php if (isset($_GET['deletado'])): ?>
             <div class="message" role="status">Jogo excluído com sucesso.</div>
+        <?php elseif (isset($_GET['editado'])): ?>
+            <div class="message" role="status">Jogo atualizado com sucesso.</div>
         <?php endif; ?>
 
         <?php if ($games): ?>
@@ -47,6 +50,7 @@ function h(string $value): string
                 <table>
                     <thead>
                         <tr>
+                            <th>Imagem</th>
                             <th>Jogo</th>
                             <th>Preço</th>
                             <th>Estoque</th>
@@ -57,6 +61,9 @@ function h(string $value): string
                     <tbody>
                         <?php foreach ($games as $game): ?>
                             <tr>
+                                <td>
+                                    <img class="table-cover" src="../public/imagens/<?= rawurlencode(imagemGameOuPlaceholder($game['imagem'] ?? '')) ?>" alt="Capa de <?= h($game['titulo']) ?>" loading="lazy" width="120" height="90">
+                                </td>
                                 <td>
                                     <div class="table-title"><?= h($game['titulo']) ?></div>
                                     <div class="table-description"><?= h($game['descricao'] ?: 'Sem descrição') ?></div>

@@ -1,21 +1,19 @@
 <?php
 require_once '../models/games.php';
+require_once '../config/imagens.php';
 
 $mensagem = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $imagemNome = $_FILES['imagem']['name'];
-    $imagemTmp = $_FILES['imagem']['tmp_name'];
-    $caminhoDestino = '../public/imagens/' . $imagemNome;
-
-    if (move_uploaded_file($imagemTmp, $caminhoDestino)) {
+    try {
+        $imagemNome = salvarImagemGame($_FILES['imagem'] ?? []);
         $novo = new Game([
             'titulo' => $_POST['titulo'],
             'descricao' => $_POST['descricao'],
             'preco' => $_POST['preco'],
             'estoque' => $_POST['estoque'],
             'categoria' => $_POST['categoria'],
-            'imagem' => $imagemNome
+            'imagem' => $imagemNome ?? '',
         ]);
 
         if ($novo->cadastrarGame()) {
@@ -23,8 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $mensagem = 'Erro ao cadastrar no banco de dados.';
         }
-    } else {
-        $mensagem = 'Erro ao fazer upload da imagem.';
+    } catch (RuntimeException $e) {
+        $mensagem = $e->getMessage();
     }
 }
 ?>
@@ -84,8 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <div class="field field-full">
                             <label for="imagem">Imagem</label>
-                            <input id="imagem" type="file" name="imagem" accept="image/*" required>
-                            <p class="field-help">Use uma imagem horizontal ou quadrada em JPG, PNG ou WebP.</p>
+                            <input id="imagem" type="file" name="imagem" accept="image/jpeg,image/png,image/webp">
+                            <p class="field-help">Opcional. Use JPG, PNG ou WebP; sem arquivo, exibiremos o placeholder.</p>
                         </div>
                     </div>
                     <div class="form-actions">

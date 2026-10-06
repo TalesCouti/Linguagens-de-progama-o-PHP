@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/admin/models/games.php';
+require_once __DIR__ . '/admin/config/imagens.php';
 
 $gameModel = new Game();
 $games = $gameModel->listarGames();
@@ -57,15 +58,18 @@ function h(string $value): string
                     <div class="game-grid">
                         <?php foreach ($games as $game): ?>
                             <article class="game-card">
-                                <div>
-                                    <h3><?= h($game['titulo']) ?></h3>
-                                    <p><?= h($game['descricao'] ?: 'Uma nova experiência espera por você.') ?></p>
-                                    <div class="game-meta">
-                                        <span><?= h($game['categoria'] ?: 'Sem categoria') ?></span>
-                                        <span><?= (int) $game['estoque'] ?> em estoque</span>
+                                <img class="game-cover" src="admin/public/imagens/<?= rawurlencode(imagemGameOuPlaceholder($game['imagem'] ?? '')) ?>" alt="Capa de <?= h($game['titulo']) ?>" loading="lazy" width="638" height="480">
+                                <div class="game-card-body">
+                                    <div>
+                                        <h3><?= h($game['titulo']) ?></h3>
+                                        <p><?= h($game['descricao'] ?: 'Uma nova experiência espera por você.') ?></p>
+                                        <div class="game-meta">
+                                            <span><?= h($game['categoria'] ?: 'Sem categoria') ?></span>
+                                            <span><?= (int) $game['estoque'] ?> em estoque</span>
+                                        </div>
                                     </div>
+                                    <strong class="price">R$ <?= number_format((float) $game['preco'], 2, ',', '.') ?></strong>
                                 </div>
-                                <strong class="price">R$ <?= number_format((float) $game['preco'], 2, ',', '.') ?></strong>
                             </article>
                         <?php endforeach; ?>
                     </div>
