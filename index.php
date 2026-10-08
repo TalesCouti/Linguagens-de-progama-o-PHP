@@ -15,15 +15,16 @@ function h(string $value): string
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Descubra jogos para viver novas histórias na Loja Games.">
-    <title>Loja Games | Sua próxima aventura</title>
+    <meta name="description" content="Descubra jogos para viver novas histórias na PlayStation.">
+    <title>PlayStation | Sua próxima aventura</title>
+    <link rel="icon" type="image/png" href="admin/public/imagens/logo.png">
     <link rel="stylesheet" href="admin/public/css/style.css">
 </head>
 <body>
     <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
     <header class="site-header">
         <nav class="nav" aria-label="Navegação principal">
-            <a class="brand" href="index.php"><span class="brand-mark">LG</span> Loja Games</a>
+            <a class="brand" href="index.php"><span class="brand-mark"><img src="admin/public/imagens/logo.png" alt=""></span> PlayStation</a>
             <div class="nav-links">
                 <a class="nav-link" href="#catalogo">Catálogo</a>
                 <a class="nav-link nav-primary" href="login.php">Painel</a>
@@ -84,7 +85,7 @@ function h(string $value): string
     </main>
 
     <footer class="site-footer">
-        <div class="container">Loja Games. Feito para quem gosta de boas histórias.</div>
+        <div class="container">PlayStation. Feito para quem gosta de boas histórias.</div>
     </footer>
 </body>
 </html>
