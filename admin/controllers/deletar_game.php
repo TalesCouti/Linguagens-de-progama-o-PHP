@@ -1,4 +1,7 @@
 <?php
+require_once __DIR__ . '/../config/autenticacao.php';
+exigirAdministrador('../../login.php');
+
 require_once '../models/games.php';
 
 if (isset($_GET['id'])) {

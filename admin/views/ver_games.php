@@ -1,4 +1,7 @@
 <?php
+require_once __DIR__ . '/../config/autenticacao.php';
+exigirAdministrador('../../login.php');
+
 require_once __DIR__ . '/../models/games.php';
 require_once __DIR__ . '/../config/imagens.php';
 
@@ -27,6 +30,7 @@ function h(string $value): string
             <div class="nav-links">
                 <a class="nav-link" href="../../index.php">Ver loja</a>
                 <a class="nav-link" aria-current="page" href="ver_games.php">Jogos</a>
+                <a class="nav-link nav-primary" href="../../logout.php">Sair</a>
             </div>
         </nav>
     </header>
