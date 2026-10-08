@@ -40,7 +40,6 @@ function h(string $value): string
                 <p class="hero-copy">Grandes mundos, escolhas inesquecíveis e jogos selecionados para todos os estilos.</p>
                 <div class="actions">
                     <a class="button" href="#catalogo">Ver catálogo</a>
-                    <a class="button button-secondary" href="testar_conexao.php">Status da loja</a>
                 </div>
             </div>
             <div class="hero-media">
