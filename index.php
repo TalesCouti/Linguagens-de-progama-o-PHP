@@ -20,11 +20,15 @@ function h(string $value): string
     <link rel="icon" type="image/png" href="admin/public/imagens/logo.png">
     <link rel="stylesheet" href="admin/public/css/style.css">
 </head>
-<body>
+<body class="storefront-page">
     <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+    <div class="sony-ribbon" aria-hidden="true"><span>SONY</span></div>
     <header class="site-header">
         <nav class="nav" aria-label="Navegação principal">
-            <a class="brand" href="index.php"><span class="brand-mark"><img src="admin/public/imagens/logo.png" alt=""></span> PlayStation</a>
+            <a class="brand store-brand" href="index.php">
+                <span class="brand-mark"><img src="admin/public/imagens/logo.png" alt=""></span>
+                <span>PlayStation <strong>Store</strong></span>
+            </a>
             <div class="nav-links">
                 <a class="nav-link" href="#catalogo">Catálogo</a>
                 <a class="nav-link nav-primary" href="login.php">Painel</a>
@@ -33,17 +37,17 @@ function h(string $value): string
     </header>
 
     <main id="conteudo">
-        <section class="container hero">
-            <div class="hero-copy-block">
-                <p class="eyebrow">Jogue do seu jeito</p>
-                <h1>Sua próxima aventura.</h1>
-                <p class="hero-copy">Grandes mundos, escolhas inesquecíveis e jogos selecionados para todos os estilos.</p>
-                <div class="actions">
-                    <a class="button" href="#catalogo">Ver catálogo</a>
+        <section class="storefront-hero" aria-labelledby="destaque-titulo">
+            <div class="container store-hero-stage">
+                <img class="store-hero-art" src="admin/public/imagens/TheLastofUs.png" width="554" height="554" alt="Ellie diante de uma cidade tomada pela natureza em The Last of Us Part II Remastered">
+                <div class="store-hero-content">
+                    <div class="store-hero-copy">
+                        <p class="store-kicker">PlayStation Studios</p>
+                        <h1 id="destaque-titulo">The Last of Us Part II Remastered</h1>
+                        <p>Uma jornada intensa de sobrevivência, escolhas e consequências em uma Seattle tomada pela natureza.</p>
+                        <a class="button store-hero-button" href="#catalogo">Explorar catálogo</a>
+                    </div>
                 </div>
-            </div>
-            <div class="hero-media">
-                <img src="admin/public/imagens/hero-controller.png" width="1536" height="1024" alt="Controle de videogame preto iluminado por uma luz verde suave">
             </div>
         </section>
 
