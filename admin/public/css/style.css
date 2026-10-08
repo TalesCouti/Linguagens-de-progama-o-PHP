@@ -1,18 +1,18 @@
 :root {
     color-scheme: dark;
-    --bg: #0c0f0d;
-    --surface: #141815;
-    --surface-2: #1b201c;
-    --surface-3: #242a25;
-    --text: #f1f5f0;
-    --muted: #aeb8b0;
-    --subtle: #7d877f;
-    --accent: #a3e635;
-    --accent-strong: #84cc16;
-    --accent-ink: #172006;
+    --bg: #050917;
+    --surface: #0b1230;
+    --surface-2: #111c42;
+    --surface-3: #1b2c5a;
+    --text: #f4f7ff;
+    --muted: #b6c3e2;
+    --subtle: #7f90bb;
+    --accent: #4da3ff;
+    --accent-strong: #77b9ff;
+    --accent-ink: #041329;
     --danger: #fb7185;
-    --border: rgba(241, 245, 240, 0.12);
-    --shadow: 0 24px 70px rgba(3, 8, 4, 0.32);
+    --border: rgba(147, 178, 255, 0.16);
+    --shadow: 0 24px 70px rgba(0, 24, 78, 0.4);
     --radius: 18px;
     --radius-sm: 12px;
     --container: 1180px;
@@ -24,7 +24,7 @@ html { scroll-behavior: smooth; }
 body {
     min-height: 100dvh;
     margin: 0;
-    background: radial-gradient(circle at 90% 5%, rgba(163, 230, 53, 0.08), transparent 28rem), var(--bg);
+    background: radial-gradient(circle at 90% 5%, rgba(0, 112, 209, 0.2), transparent 30rem), radial-gradient(circle at 10% 85%, rgba(77, 163, 255, 0.08), transparent 26rem), var(--bg);
     color: var(--text);
     font-family: "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
     font-size: 16px;
@@ -63,7 +63,7 @@ button, .button, .nav-link, .game-card { touch-action: manipulation; }
     top: 0;
     z-index: 20;
     border-bottom: 1px solid var(--border);
-    background: rgba(12, 15, 13, 0.88);
+    background: rgba(5, 9, 23, 0.88);
     backdrop-filter: blur(18px);
 }
 .nav {
@@ -135,7 +135,7 @@ button, .button, .nav-link, .game-card { touch-action: manipulation; }
     background: var(--surface);
     box-shadow: var(--shadow);
 }
-.hero-media img { width: 100%; height: 100%; min-height: 580px; object-fit: cover; }
+.hero-media img { width: 100%; height: 100%; min-height: 580px; filter: hue-rotate(105deg) saturate(1.15); object-fit: cover; }
 .hero-media::after {
     position: absolute;
     inset: 0;
@@ -162,7 +162,7 @@ button, .button, .nav-link, .game-card { touch-action: manipulation; }
 .button:hover, button[type="submit"]:hover { background: var(--accent-strong); }
 .button:active, button[type="submit"]:active { transform: scale(0.98); }
 .button-secondary { border-color: var(--border); background: transparent; color: var(--text); }
-.button-secondary:hover { border-color: rgba(163, 230, 53, 0.55); background: var(--surface-2); }
+.button-secondary:hover { border-color: rgba(77, 163, 255, 0.65); background: var(--surface-2); }
 .button-danger { border-color: rgba(251, 113, 133, 0.3); background: rgba(251, 113, 133, 0.1); color: #fecdd3; }
 .section { padding: 80px 0; }
 .section-heading { max-width: 680px; margin-bottom: 32px; }
@@ -176,8 +176,8 @@ button, .button, .nav-link, .game-card { touch-action: manipulation; }
     background: var(--surface);
     transition: transform 220ms var(--ease), border-color 220ms ease, background-color 220ms ease;
 }
-.game-card:first-child { grid-column: 1 / -1; background: linear-gradient(120deg, rgba(163, 230, 53, 0.12), transparent 58%), var(--surface); }
-.game-card:hover { transform: translateY(-4px); border-color: rgba(163, 230, 53, 0.4); background-color: var(--surface-2); }
+.game-card:first-child { grid-column: 1 / -1; background: linear-gradient(120deg, rgba(0, 112, 209, 0.2), transparent 58%), var(--surface); }
+.game-card:hover { transform: translateY(-4px); border-color: rgba(77, 163, 255, 0.48); background-color: var(--surface-2); }
 .game-cover {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -196,7 +196,7 @@ button, .button, .nav-link, .game-card { touch-action: manipulation; }
 .game-card p { max-width: 54ch; margin: 0; color: var(--muted); }
 .game-meta { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 24px; color: var(--subtle); font-size: 0.9rem; }
 .price { align-self: start; color: var(--accent); font-size: 1.2rem; font-variant-numeric: tabular-nums; font-weight: 850; white-space: nowrap; }
-.panel, .form-card, .auth-card, .empty-state { border: 1px solid var(--border); border-radius: var(--radius); background: rgba(20, 24, 21, 0.92); box-shadow: var(--shadow); }
+.panel, .form-card, .auth-card, .empty-state { border: 1px solid var(--border); border-radius: var(--radius); background: rgba(11, 18, 48, 0.92); box-shadow: var(--shadow); }
 .page-header { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 32px; }
 .page-title { max-width: 13ch; }
 .page-intro { max-width: 58ch; margin: 14px 0 0; }
@@ -238,7 +238,7 @@ input, textarea, select {
 }
 textarea { min-height: 130px; resize: vertical; }
 input::placeholder, textarea::placeholder { color: var(--subtle); }
-input:focus, textarea:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(163, 230, 53, 0.14); outline: none; }
+input:focus, textarea:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(77, 163, 255, 0.18); outline: none; }
 input[type="file"] { padding: 8px; }
 input[type="file"]::file-selector-button { min-height: 36px; margin-right: 12px; padding: 6px 12px; border: 0; border-radius: 8px; background: var(--surface-3); color: var(--text); cursor: pointer; }
 .field-help { margin: 0; color: var(--subtle); font-size: 0.82rem; }
@@ -252,7 +252,7 @@ input[type="file"]::file-selector-button { min-height: 36px; margin-right: 12px;
     object-fit: cover;
 }
 .form-actions { display: flex; align-items: center; gap: 12px; margin-top: 26px; }
-.message { display: block; margin-bottom: 22px; padding: 14px 16px; border: 1px solid rgba(163, 230, 53, 0.35); border-radius: var(--radius-sm); background: rgba(163, 230, 53, 0.1); color: #d9f99d; font-weight: 700; }
+.message { display: block; margin-bottom: 22px; padding: 14px 16px; border: 1px solid rgba(77, 163, 255, 0.4); border-radius: var(--radius-sm); background: rgba(0, 112, 209, 0.14); color: #bfdbfe; font-weight: 700; }
 .message-error { border-color: rgba(251, 113, 133, 0.35); background: rgba(251, 113, 133, 0.09); color: #fecdd3; }
 .auth-page { display: grid; min-height: 100dvh; place-items: center; padding: 28px 0; }
 .auth-layout { width: min(calc(100% - 32px), 960px); align-items: center; }
@@ -260,7 +260,7 @@ input[type="file"]::file-selector-button { min-height: 36px; margin-right: 12px;
 .auth-copy { max-width: 44ch; }
 .auth-card .field + .field { margin-top: 18px; }
 .auth-card button { width: 100%; margin-top: 24px; }
-.connection-status { display: inline-flex; align-items: center; min-height: 36px; padding: 6px 12px; border-radius: 999px; background: rgba(163, 230, 53, 0.1); color: #d9f99d; font-weight: 750; }
+.connection-status { display: inline-flex; align-items: center; min-height: 36px; padding: 6px 12px; border-radius: 999px; background: rgba(0, 112, 209, 0.16); color: #bfdbfe; font-weight: 750; }
 .empty-state { padding: 48px; text-align: center; }
 .empty-state h2 { margin-top: 0; }
 .site-footer { padding: 30px 0; border-top: 1px solid var(--border); color: var(--subtle); font-size: 0.9rem; }
@@ -268,22 +268,22 @@ input[type="file"]::file-selector-button { min-height: 36px; margin-right: 12px;
 @media (prefers-color-scheme: light) {
     :root {
         color-scheme: light;
-        --bg: #f4f6f3;
+        --bg: #f3f7ff;
         --surface: #ffffff;
-        --surface-2: #e9ede8;
-        --surface-3: #dfe5de;
-        --text: #151a16;
-        --muted: #465048;
-        --subtle: #626d64;
-        --accent: #65a30d;
-        --accent-strong: #4d7c0f;
+        --surface-2: #e8f0ff;
+        --surface-3: #d9e6fb;
+        --text: #0c1c3f;
+        --muted: #42567d;
+        --subtle: #63749a;
+        --accent: #006fcd;
+        --accent-strong: #005bb5;
         --accent-ink: #ffffff;
-        --border: rgba(21, 26, 22, 0.14);
-        --shadow: 0 24px 70px rgba(21, 38, 25, 0.12);
+        --border: rgba(0, 55, 145, 0.16);
+        --shadow: 0 24px 70px rgba(0, 55, 145, 0.14);
     }
-    .site-header { background: rgba(244, 246, 243, 0.9); }
+    .site-header { background: rgba(243, 247, 255, 0.9); }
     .panel, .form-card, .auth-card, .empty-state { background: rgba(255, 255, 255, 0.94); }
-    .connection-status, .message { color: #365314; }
+    .connection-status, .message { color: #004b93; }
 }
 
 @media (max-width: 860px) {
