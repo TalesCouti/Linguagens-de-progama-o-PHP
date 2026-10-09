@@ -102,7 +102,7 @@ $tituloPagina = $game ? $game['titulo'] . ' | PlayStation Store' : 'Jogo não en
                             <?php else: ?>
                                 <a class="button purchase-login" href="login.php?redirect=<?= rawurlencode('game.php?id=' . (int) $game['id']) ?>">Entrar para comprar</a>
                             <?php endif; ?>
-                            <p class="purchase-note">A compra adiciona uma unidade à sua conta e atualiza o estoque imediatamente.</p>
+                            <p class="purchase-note">A compra reduz uma unidade do estoque imediatamente.</p>
                         </div>
                     </div>
                 </article>
