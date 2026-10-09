@@ -1,6 +1,9 @@
 <?php
+require_once __DIR__ . '/admin/config/autenticacao.php';
 require_once __DIR__ . '/admin/models/games.php';
 require_once __DIR__ . '/admin/config/imagens.php';
+
+iniciarSessaoSegura();
 
 $gameModel = new Game();
 $games = $gameModel->listarGames();
@@ -31,12 +34,24 @@ function h(string $value): string
             </a>
             <div class="nav-links">
                 <a class="nav-link" href="#catalogo">Catálogo</a>
-                <a class="nav-link nav-primary" href="login.php">Painel</a>
+                <?php if (usuarioAdministradorAutenticado()): ?>
+                    <a class="nav-link" href="admin/views/ver_games.php">Painel</a>
+                    <a class="nav-link nav-primary" href="logout.php">Sair</a>
+                <?php elseif (usuarioAutenticado()): ?>
+                    <a class="nav-link nav-primary" href="logout.php">Sair</a>
+                <?php else: ?>
+                    <a class="nav-link nav-primary" href="login.php">Entrar</a>
+                <?php endif; ?>
             </div>
         </nav>
     </header>
 
     <main id="conteudo">
+        <?php if (isset($_GET['acesso'])): ?>
+            <div class="container access-message">
+                <div class="message message-error" role="alert">Esta área está disponível somente para administradores.</div>
+            </div>
+        <?php endif; ?>
         <section class="storefront-hero" aria-labelledby="destaque-titulo">
             <div class="container store-hero-stage">
                 <img class="store-hero-art" src="admin/public/imagens/TheLastofUs.png" width="554" height="554" alt="Ellie diante de uma cidade tomada pela natureza em The Last of Us Part II Remastered">

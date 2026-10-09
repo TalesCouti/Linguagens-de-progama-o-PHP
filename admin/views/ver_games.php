@@ -30,6 +30,7 @@ function h(string $value): string
             <div class="nav-links">
                 <a class="nav-link" href="../../index.php">Ver loja</a>
                 <a class="nav-link" aria-current="page" href="ver_games.php">Jogos</a>
+                <a class="nav-link" href="ver_usuarios.php">Usuários</a>
                 <a class="nav-link nav-primary" href="../../logout.php">Sair</a>
             </div>
         </nav>
@@ -79,7 +80,11 @@ function h(string $value): string
                                 <td>
                                     <div class="row-actions">
                                         <a class="button button-secondary" href="editar_games.php?id=<?= (int) $game['id'] ?>">Editar</a>
-                                        <a class="button button-danger" href="../controllers/deletar_game.php?id=<?= (int) $game['id'] ?>" onclick="return confirm('Deseja excluir este jogo?')">Excluir</a>
+                                        <form method="POST" action="../controllers/deletar_game.php" onsubmit="return confirm('Deseja excluir este jogo?')">
+                                            <input type="hidden" name="csrf_token" value="<?= h(gerarTokenCsrf()) ?>">
+                                            <input type="hidden" name="id" value="<?= (int) $game['id'] ?>">
+                                            <button class="button button-danger" type="submit">Excluir</button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>

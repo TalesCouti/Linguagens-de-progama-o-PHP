@@ -4,8 +4,8 @@ require_once __DIR__ . '/admin/config/autenticacao.php';
 
 iniciarSessaoSegura();
 
-if (usuarioAdministradorAutenticado()) {
-    header('Location: admin/views/ver_games.php');
+if (usuarioAutenticado()) {
+    header('Location: ' . (usuarioAdministradorAutenticado() ? 'admin/views/ver_games.php' : 'index.php'));
     exit;
 }
 
@@ -21,9 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         tokenCsrfValido(is_string($token) ? $token : null)
         && filter_var($email, FILTER_VALIDATE_EMAIL)
         && $senhaInformada !== ''
-        && autenticarAdministrador($pdo, $email, $senhaInformada)
+        && autenticarUsuario($pdo, $email, $senhaInformada)
     ) {
-        header('Location: admin/views/ver_games.php');
+        header('Location: ' . (usuarioAdministradorAutenticado() ? 'admin/views/ver_games.php' : 'index.php'));
         exit;
     }
 
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Acesso à área administrativa da PlayStation.">
+    <meta name="description" content="Acesso à sua conta da PlayStation.">
     <title>Entrar | PlayStation</title>
     <link rel="icon" type="image/png" href="admin/public/imagens/logo.png">
     <link rel="stylesheet" href="admin/public/css/style.css">
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <section>
                 <a class="brand" href="index.php"><span class="brand-mark"><img src="admin/public/imagens/logo.png" alt=""></span> PlayStation</a>
                 <h1 class="auth-title" style="margin-top: 48px;">Bem-vindo de volta.</h1>
-                <p class="auth-copy">Acesse o painel para cadastrar, editar e organizar o catálogo.</p>
+                <p class="auth-copy">Entre na sua conta. Administradores também têm acesso ao gerenciamento da loja.</p>
             </section>
 
             <form class="auth-card" method="post" action="login.php">
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label for="senha-login">Senha</label>
                     <input id="senha-login" name="senha" type="password" autocomplete="current-password" placeholder="Digite sua senha" required>
                 </div>
-                <button type="submit">Entrar no painel</button>
+                <button type="submit">Entrar</button>
                 <p class="field-help" style="margin-top: 18px; text-align: center;">
                     <a href="index.php">Voltar para a loja</a>
                 </p>

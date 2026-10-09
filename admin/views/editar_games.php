@@ -15,6 +15,11 @@ if (isset($_GET['id'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
+        $token = $_POST['csrf_token'] ?? null;
+        if (!tokenCsrfValido(is_string($token) ? $token : null)) {
+            throw new RuntimeException('A sessão do formulário expirou. Tente novamente.');
+        }
+
         $id = (int) ($_POST['id'] ?? 0);
         $dadosAtuais = $game->buscarGamePorId($id);
 
@@ -78,6 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="message message-error" role="alert"><?= htmlspecialchars($mensagem, ENT_QUOTES, 'UTF-8') ?></div>
                     <?php endif; ?>
                     <form method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(gerarTokenCsrf(), ENT_QUOTES, 'UTF-8') ?>">
                         <input type="hidden" name="id" value="<?= (int) $dados['id'] ?>">
                         <div class="form-grid">
                             <div class="field field-full">

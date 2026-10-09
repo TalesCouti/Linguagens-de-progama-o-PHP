@@ -44,11 +44,18 @@ function usuarioAdministradorAutenticado(): bool
 {
     iniciarSessaoSegura();
 
-    return isset($_SESSION['usuario_id'], $_SESSION['usuario_tipo'])
-        && $_SESSION['usuario_tipo'] === 'admin';
+    return usuarioAutenticado() && $_SESSION['usuario_tipo'] === 'admin';
 }
 
-function autenticarAdministrador(PDO $pdo, string $email, string $senhaInformada): bool
+function usuarioAutenticado(): bool
+{
+    iniciarSessaoSegura();
+
+    return isset($_SESSION['usuario_id'], $_SESSION['usuario_tipo'])
+        && in_array($_SESSION['usuario_tipo'], ['admin', 'user'], true);
+}
+
+function autenticarUsuario(PDO $pdo, string $email, string $senhaInformada): bool
 {
     $stmt = $pdo->prepare(
         'SELECT id, nome, email, senha, tipo
@@ -59,7 +66,7 @@ function autenticarAdministrador(PDO $pdo, string $email, string $senhaInformada
     $stmt->execute([':email' => $email]);
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (!$usuario || $usuario['tipo'] !== 'admin') {
+    if (!$usuario || !in_array($usuario['tipo'], ['admin', 'user'], true)) {
         return false;
     }
 
@@ -103,13 +110,16 @@ function autenticarAdministrador(PDO $pdo, string $email, string $senhaInformada
     return true;
 }
 
-function exigirAdministrador(string $urlLogin = '../../login.php'): void
+function exigirAdministrador(
+    string $urlLogin = '../../login.php',
+    string $urlSemPermissao = '../../index.php?acesso=negado'
+): void
 {
     if (usuarioAdministradorAutenticado()) {
         return;
     }
 
-    header('Location: ' . $urlLogin);
+    header('Location: ' . (usuarioAutenticado() ? $urlSemPermissao : $urlLogin));
     exit;
 }
 

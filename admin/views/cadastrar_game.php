@@ -9,6 +9,11 @@ $mensagem = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
+        $token = $_POST['csrf_token'] ?? null;
+        if (!tokenCsrfValido(is_string($token) ? $token : null)) {
+            throw new RuntimeException('A sessão do formulário expirou. Tente novamente.');
+        }
+
         $imagemNome = salvarImagemGame($_FILES['imagem'] ?? []);
         $novo = new Game([
             'titulo' => $_POST['titulo'],
@@ -63,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php endif; ?>
 
                 <form method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(gerarTokenCsrf(), ENT_QUOTES, 'UTF-8') ?>">
                     <div class="form-grid">
                         <div class="field field-full">
                             <label for="titulo">Título</label>
