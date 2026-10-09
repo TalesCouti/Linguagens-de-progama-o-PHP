@@ -123,6 +123,16 @@ function exigirAdministrador(
     exit;
 }
 
+function exigirLogin(string $urlLogin = '../../login.php'): void
+{
+    if (usuarioAutenticado()) {
+        return;
+    }
+
+    header('Location: ' . $urlLogin);
+    exit;
+}
+
 function encerrarSessao(): void
 {
     iniciarSessaoSegura();

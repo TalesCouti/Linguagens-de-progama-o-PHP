@@ -76,20 +76,22 @@ function h(string $value): string
                 <?php if ($games): ?>
                     <div class="game-grid">
                         <?php foreach ($games as $game): ?>
-                            <article class="game-card">
-                                <img class="game-cover" src="admin/public/imagens/<?= rawurlencode(imagemGameOuPlaceholder($game['imagem'] ?? '')) ?>" alt="Capa de <?= h($game['titulo']) ?>" loading="lazy" width="638" height="480">
-                                <div class="game-card-body">
-                                    <div>
-                                        <h3><?= h($game['titulo']) ?></h3>
-                                        <p><?= h($game['descricao'] ?: 'Uma nova experiência espera por você.') ?></p>
-                                        <div class="game-meta">
-                                            <span><?= h($game['categoria'] ?: 'Sem categoria') ?></span>
-                                            <span><?= (int) $game['estoque'] ?> em estoque</span>
-                                        </div>
-                                    </div>
-                                    <strong class="price">R$ <?= number_format((float) $game['preco'], 2, ',', '.') ?></strong>
-                                </div>
-                            </article>
+                            <?php $disponivel = (int) $game['estoque'] > 0; ?>
+                            <a class="game-card" href="game.php?id=<?= (int) $game['id'] ?>" aria-label="Ver detalhes de <?= h($game['titulo']) ?>">
+                                <span class="game-card-media">
+                                    <img class="game-cover" src="admin/public/imagens/<?= rawurlencode(imagemGameOuPlaceholder($game['imagem'] ?? '')) ?>" alt="Capa de <?= h($game['titulo']) ?>" loading="lazy" width="638" height="480">
+                                    <span class="game-availability<?= $disponivel ? '' : ' sold-out' ?>"><?= $disponivel ? 'Disponível' : 'Esgotado' ?></span>
+                                </span>
+                                <span class="game-card-body">
+                                    <span class="game-category"><?= h($game['categoria'] ?: 'Sem categoria') ?></span>
+                                    <strong class="game-card-title"><?= h($game['titulo']) ?></strong>
+                                    <span class="game-card-description"><?= h($game['descricao'] ?: 'Uma nova experiência espera por você.') ?></span>
+                                    <span class="game-card-footer">
+                                        <strong class="price">R$ <?= number_format((float) $game['preco'], 2, ',', '.') ?></strong>
+                                        <span class="game-card-link">Ver detalhes</span>
+                                    </span>
+                                </span>
+                            </a>
                         <?php endforeach; ?>
                     </div>
                 <?php else: ?>

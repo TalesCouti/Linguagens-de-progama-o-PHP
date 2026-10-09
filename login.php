@@ -4,8 +4,19 @@ require_once __DIR__ . '/admin/config/autenticacao.php';
 
 iniciarSessaoSegura();
 
+function destinoLoginSeguro(mixed $destino): ?string
+{
+    if (!is_string($destino)) {
+        return null;
+    }
+
+    return preg_match('/\Agame\.php\?id=[1-9]\d*\z/D', $destino) === 1 ? $destino : null;
+}
+
+$destinoAposLogin = destinoLoginSeguro($_POST['redirect'] ?? $_GET['redirect'] ?? null);
+
 if (usuarioAutenticado()) {
-    header('Location: ' . (usuarioAdministradorAutenticado() ? 'admin/views/ver_games.php' : 'index.php'));
+    header('Location: ' . ($destinoAposLogin ?? (usuarioAdministradorAutenticado() ? 'admin/views/ver_games.php' : 'index.php')));
     exit;
 }
 
@@ -23,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         && $senhaInformada !== ''
         && autenticarUsuario($pdo, $email, $senhaInformada)
     ) {
-        header('Location: ' . (usuarioAdministradorAutenticado() ? 'admin/views/ver_games.php' : 'index.php'));
+        header('Location: ' . ($destinoAposLogin ?? (usuarioAdministradorAutenticado() ? 'admin/views/ver_games.php' : 'index.php')));
         exit;
     }
 
@@ -57,6 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="message" role="status">Sessão encerrada com sucesso.</div>
                 <?php endif; ?>
                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(gerarTokenCsrf(), ENT_QUOTES, 'UTF-8') ?>">
+                <?php if ($destinoAposLogin !== null): ?>
+                    <input type="hidden" name="redirect" value="<?= htmlspecialchars($destinoAposLogin, ENT_QUOTES, 'UTF-8') ?>">
+                <?php endif; ?>
                 <div class="field">
                     <label for="email">E-mail</label>
                     <input id="email" name="email" type="email" autocomplete="username" placeholder="voce@exemplo.com" value="<?= htmlspecialchars($email, ENT_QUOTES, 'UTF-8') ?>" required autofocus>
