@@ -41,6 +41,9 @@ $tituloPagina = $game ? $game['titulo'] . ' | PlayStation Store' : 'Jogo não en
             </a>
             <div class="nav-links">
                 <a class="nav-link" href="index.php#catalogo">Catálogo</a>
+                <?php if (usuarioAutenticado()): ?>
+                    <a class="nav-link" href="meus_jogos.php">Meus jogos</a>
+                <?php endif; ?>
                 <?php if (usuarioAdministradorAutenticado()): ?>
                     <a class="nav-link" href="admin/views/ver_games.php">Painel</a>
                     <a class="nav-link nav-primary" href="logout.php">Sair</a>

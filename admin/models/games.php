@@ -124,20 +124,81 @@ class Game
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function comprarGame(int $id): bool
+    public function comprarGame(int $id, int $usuarioId): bool
     {
-        if ($id <= 0) {
+        if ($id <= 0 || $usuarioId <= 0) {
             return false;
         }
 
-        $stmt = $this->pdo->prepare(
-            'UPDATE games
-             SET estoque = estoque - 1
-             WHERE id = :id AND estoque > 0'
+        $this->pdo->exec(
+            'CREATE TABLE IF NOT EXISTS compras (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                usuario_id INT NOT NULL,
+                game_id INT NOT NULL,
+                comprado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                INDEX idx_compras_usuario (usuario_id),
+                INDEX idx_compras_game (game_id)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4'
         );
-        $stmt->execute([':id' => $id]);
 
-        return $stmt->rowCount() === 1;
+        $this->pdo->beginTransaction();
+        try {
+            $stmt = $this->pdo->prepare(
+                'UPDATE games
+                 SET estoque = estoque - 1
+                 WHERE id = :id AND estoque > 0'
+            );
+            $stmt->execute([':id' => $id]);
+
+            if ($stmt->rowCount() !== 1) {
+                $this->pdo->rollBack();
+                return false;
+            }
+
+            $registro = $this->pdo->prepare(
+                'INSERT INTO compras (usuario_id, game_id)
+                 VALUES (:usuario_id, :game_id)'
+            );
+            $registro->execute([':usuario_id' => $usuarioId, ':game_id' => $id]);
+            $this->pdo->commit();
+        } catch (Throwable $e) {
+            if ($this->pdo->inTransaction()) {
+                $this->pdo->rollBack();
+            }
+            throw $e;
+        }
+
+        return true;
+    }
+
+    public function listarComprasDoUsuario(int $usuarioId): array
+    {
+        if ($usuarioId <= 0) {
+            return [];
+        }
+
+        $this->pdo->exec(
+            'CREATE TABLE IF NOT EXISTS compras (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                usuario_id INT NOT NULL,
+                game_id INT NOT NULL,
+                comprado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                INDEX idx_compras_usuario (usuario_id),
+                INDEX idx_compras_game (game_id)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4'
+        );
+
+        $stmt = $this->pdo->prepare(
+            'SELECT g.id, g.titulo, g.descricao, g.preco, g.categoria, g.imagem,
+                    c.comprado_em
+             FROM compras c
+             INNER JOIN games g ON g.id = c.game_id
+             WHERE c.usuario_id = :usuario_id
+             ORDER BY c.comprado_em DESC, c.id DESC'
+        );
+        $stmt->execute([':usuario_id' => $usuarioId]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function editarGame(): bool

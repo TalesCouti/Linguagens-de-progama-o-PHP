@@ -34,6 +34,9 @@ function h(string $value): string
             </a>
             <div class="nav-links">
                 <a class="nav-link" href="#catalogo">Catálogo</a>
+                <?php if (usuarioAutenticado()): ?>
+                    <a class="nav-link" href="meus_jogos.php">Meus jogos</a>
+                <?php endif; ?>
                 <?php if (usuarioAdministradorAutenticado()): ?>
                     <a class="nav-link" href="admin/views/ver_games.php">Painel</a>
                     <a class="nav-link nav-primary" href="logout.php">Sair</a>

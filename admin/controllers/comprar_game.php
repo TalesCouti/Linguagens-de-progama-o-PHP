@@ -23,7 +23,7 @@ if (!$id || $id <= 0) {
 }
 
 $gameModel = new Game();
-$comprado = $gameModel->comprarGame($id);
+$comprado = $gameModel->comprarGame($id, (int) $_SESSION['usuario_id']);
 $resultado = $comprado ? 'sucesso' : 'sem_estoque';
 
 header('Location: ../../game.php?id=' . $id . '&compra=' . $resultado);
