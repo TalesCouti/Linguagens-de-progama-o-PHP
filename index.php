@@ -36,6 +36,7 @@ function h(string $value): string
                 <a class="nav-link" href="#catalogo">Catálogo</a>
                 <?php if (usuarioAutenticado()): ?>
                     <a class="nav-link" href="meus_jogos.php">Meus jogos</a>
+                    <a class="nav-link" href="wishlist.php">Wishlist</a>
                 <?php endif; ?>
                 <?php if (usuarioAdministradorAutenticado()): ?>
                     <a class="nav-link" href="admin/views/ver_games.php">Painel</a>
@@ -43,6 +44,7 @@ function h(string $value): string
                 <?php elseif (usuarioAutenticado()): ?>
                     <a class="nav-link nav-primary" href="logout.php">Sair</a>
                 <?php else: ?>
+                    <a class="nav-link" href="cadastro.php">Criar conta</a>
                     <a class="nav-link nav-primary" href="login.php">Entrar</a>
                 <?php endif; ?>
             </div>

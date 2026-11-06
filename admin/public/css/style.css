@@ -380,6 +380,32 @@ input[type="file"]::file-selector-button { min-height: 36px; margin-right: 12px;
 .empty-state { padding: 48px; text-align: center; }
 .empty-state h2 { margin-top: 0; }
 .site-footer { padding: 30px 0; border-top: 1px solid var(--border); color: var(--subtle); font-size: 0.9rem; }
+.game-card-title { display: block; margin-top: 8px; color: var(--text); font-size: 1.5rem; }
+.game-card-description { display: block; margin-top: 12px; color: var(--muted); }
+.game-card-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 22px; }
+.game-card-media { display: block; position: relative; }
+.game-availability { position: absolute; right: 16px; bottom: 16px; padding: 6px 10px; border-radius: 999px; background: #0878d0; color: white; }
+.game-availability.sold-out { background: #45536b; }
+.game-detail-back { display: inline-block; margin-bottom: 28px; }
+.game-detail { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(300px, .9fr); gap: clamp(28px, 5vw, 70px); align-items: start; }
+.game-detail-cover { width: 100%; border-radius: var(--radius); object-fit: cover; box-shadow: var(--shadow); }
+.game-detail-content h1 { margin: 12px 0 18px; font-size: clamp(2.4rem, 5vw, 4.5rem); line-height: 1; }
+.game-detail-description { color: var(--muted); font-size: 1.1rem; }
+.rating-summary { color: var(--accent); font-weight: 800; }
+.purchase-panel, .reviews { margin-top: 28px; padding: clamp(22px, 4vw, 36px); border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+.purchase-panel { display: grid; gap: 16px; }
+.purchase-label { display: block; color: var(--muted); }
+.game-detail-price { font-size: 2rem; color: var(--accent); }
+.purchase-note { color: var(--subtle); font-size: .85rem; }
+.wishlist-action { margin-top: 16px; }
+.reviews { max-width: 840px; margin-top: 64px; }
+.review-form { display: grid; gap: 12px; margin: 24px 0; }
+.review-form select { max-width: 240px; }
+.review-form button { justify-self: start; }
+.review-item { border-top: 1px solid var(--border); padding: 20px 0; }
+.review-item span { margin-left: 12px; color: var(--accent); font-weight: 800; }
+.review-item p { white-space: pre-wrap; }
+.wishlist-card-actions { display: grid; gap: 8px; justify-items: start; }
 
 @media (prefers-color-scheme: light) {
     :root {
@@ -403,6 +429,7 @@ input[type="file"]::file-selector-button { min-height: 36px; margin-right: 12px;
 }
 
 @media (max-width: 860px) {
+    .game-detail { grid-template-columns: 1fr; }
     .hero, .form-layout, .auth-layout { grid-template-columns: 1fr; }
     .hero { min-height: auto; padding-top: 44px; }
     .hero-media, .hero-media img { min-height: 420px; }

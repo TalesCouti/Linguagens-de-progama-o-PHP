@@ -10,7 +10,7 @@ function destinoLoginSeguro(mixed $destino): ?string
         return null;
     }
 
-    return preg_match('/\Agame\.php\?id=[1-9]\d*\z/D', $destino) === 1 ? $destino : null;
+    return ($destino === 'meus_jogos.php' || $destino === 'wishlist.php' || preg_match('/\Agame\.php\?id=[1-9]\d*\z/D', $destino) === 1) ? $destino : null;
 }
 
 $destinoAposLogin = destinoLoginSeguro($_POST['redirect'] ?? $_GET['redirect'] ?? null);
@@ -66,6 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="message message-error" role="alert"><?= htmlspecialchars($mensagem, ENT_QUOTES, 'UTF-8') ?></div>
                 <?php elseif (isset($_GET['logout'])): ?>
                     <div class="message" role="status">Sessão encerrada com sucesso.</div>
+                <?php elseif (($_GET['cadastro'] ?? '') === 'sucesso'): ?>
+                    <div class="message" role="status">Conta criada. Entre com seu e-mail e senha.</div>
                 <?php endif; ?>
                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(gerarTokenCsrf(), ENT_QUOTES, 'UTF-8') ?>">
                 <?php if ($destinoAposLogin !== null): ?>
@@ -80,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input id="senha-login" name="senha" type="password" autocomplete="current-password" placeholder="Digite sua senha" required>
                 </div>
                 <button type="submit">Entrar</button>
+                <p class="field-help" style="margin-top: 18px; text-align: center;">Ainda não tem conta? <a href="cadastro.php">Cadastre-se</a></p>
                 <p class="field-help" style="margin-top: 18px; text-align: center;">
                     <a href="index.php">Voltar para a loja</a>
                 </p>

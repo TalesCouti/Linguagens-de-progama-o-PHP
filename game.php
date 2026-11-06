@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/admin/config/autenticacao.php';
 require_once __DIR__ . '/admin/models/games.php';
+require_once __DIR__ . '/admin/models/interacoes.php';
 require_once __DIR__ . '/admin/config/imagens.php';
 
 iniciarSessaoSegura();
@@ -8,6 +9,17 @@ iniciarSessaoSegura();
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 $gameModel = new Game();
 $game = $id ? $gameModel->buscarGamePorId($id) : false;
+$interacoes = new Interacoes();
+$avaliacoes = $game ? $interacoes->listarAvaliacoes((int) $game['id']) : [];
+$naWishlist = $game && usuarioAutenticado() ? $interacoes->estaNaWishlist((int) $_SESSION['usuario_id'], (int) $game['id']) : false;
+$minhaAvaliacao = null;
+foreach ($avaliacoes as $avaliacao) {
+    if (usuarioAutenticado() && (int) $avaliacao['usuario_id'] === (int) $_SESSION['usuario_id']) {
+        $minhaAvaliacao = $avaliacao;
+        break;
+    }
+}
+$media = $avaliacoes ? array_sum(array_column($avaliacoes, 'nota')) / count($avaliacoes) : null;
 
 if (!$game) {
     http_response_code(404);
@@ -43,6 +55,7 @@ $tituloPagina = $game ? $game['titulo'] . ' | PlayStation Store' : 'Jogo não en
                 <a class="nav-link" href="index.php#catalogo">Catálogo</a>
                 <?php if (usuarioAutenticado()): ?>
                     <a class="nav-link" href="meus_jogos.php">Meus jogos</a>
+                    <a class="nav-link" href="wishlist.php">Wishlist</a>
                 <?php endif; ?>
                 <?php if (usuarioAdministradorAutenticado()): ?>
                     <a class="nav-link" href="admin/views/ver_games.php">Painel</a>
@@ -78,6 +91,7 @@ $tituloPagina = $game ? $game['titulo'] . ' | PlayStation Store' : 'Jogo não en
                         <p class="game-category"><?= h($game['categoria'] ?: 'Sem categoria') ?></p>
                         <h1><?= h($game['titulo']) ?></h1>
                         <p class="game-detail-description"><?= h($game['descricao'] ?: 'Uma nova experiência espera por você.') ?></p>
+                        <p class="rating-summary"><?= $media === null ? 'Ainda sem avaliações' : number_format($media, 1, ',', '.') . ' / 5 · ' . count($avaliacoes) . ' avaliação(ões)' ?></p>
 
                         <?php if (($_GET['compra'] ?? '') === 'sucesso'): ?>
                             <div class="message" role="status">Compra realizada. O estoque foi atualizado.</div>
@@ -107,8 +121,57 @@ $tituloPagina = $game ? $game['titulo'] . ' | PlayStation Store' : 'Jogo não en
                             <?php endif; ?>
                             <p class="purchase-note">A compra reduz uma unidade do estoque imediatamente.</p>
                         </div>
+                        <?php if (usuarioAutenticado()): ?>
+                            <form class="wishlist-action" method="post" action="admin/controllers/wishlist.php">
+                                <input type="hidden" name="csrf_token" value="<?= h(gerarTokenCsrf()) ?>">
+                                <input type="hidden" name="id" value="<?= (int) $game['id'] ?>">
+                                <input type="hidden" name="acao" value="<?= $naWishlist ? 'remover' : 'adicionar' ?>">
+                                <button class="button button-secondary" type="submit"><?= $naWishlist ? 'Remover da wishlist' : 'Adicionar à wishlist' ?></button>
+                            </form>
+                        <?php else: ?>
+                            <a class="button button-secondary" href="login.php?redirect=<?= rawurlencode('game.php?id=' . (int) $game['id']) ?>">Entre para salvar na wishlist</a>
+                        <?php endif; ?>
                     </div>
                 </article>
+                <section class="reviews" id="avaliacoes" aria-labelledby="reviews-title">
+                    <h2 id="reviews-title">Avaliações dos jogadores</h2>
+                    <?php if (($_GET['avaliacao'] ?? '') === 'salva'): ?><div class="message" role="status">Avaliação atualizada.</div><?php endif; ?>
+                    <?php if (($_GET['avaliacao'] ?? '') === 'invalida'): ?><div class="message message-error" role="alert">Informe uma nota de 1 a 5 e até 1000 caracteres.</div><?php endif; ?>
+                    <?php if (usuarioAutenticado()): ?>
+                        <form class="review-form" method="post" action="admin/controllers/avaliar_game.php">
+                            <input type="hidden" name="csrf_token" value="<?= h(gerarTokenCsrf()) ?>">
+                            <input type="hidden" name="id" value="<?= (int) $game['id'] ?>">
+                            <input type="hidden" name="acao" value="salvar">
+                            <label for="nota">Sua nota</label>
+                            <select id="nota" name="nota" required>
+                                <?php for ($nota = 1; $nota <= 5; $nota++): ?>
+                                    <option value="<?= $nota ?>" <?= (int) ($minhaAvaliacao['nota'] ?? 5) === $nota ? 'selected' : '' ?>><?= $nota ?> estrela<?= $nota > 1 ? 's' : '' ?></option>
+                                <?php endfor; ?>
+                            </select>
+                            <label for="comentario">Seu comentário (opcional)</label>
+                            <textarea id="comentario" name="comentario" maxlength="1000"><?= h($minhaAvaliacao['comentario'] ?? '') ?></textarea>
+                            <button type="submit"><?= $minhaAvaliacao ? 'Atualizar avaliação' : 'Publicar avaliação' ?></button>
+                        </form>
+                        <?php if ($minhaAvaliacao): ?>
+                            <form method="post" action="admin/controllers/avaliar_game.php">
+                                <input type="hidden" name="csrf_token" value="<?= h(gerarTokenCsrf()) ?>">
+                                <input type="hidden" name="id" value="<?= (int) $game['id'] ?>">
+                                <input type="hidden" name="acao" value="remover">
+                                <button class="button button-secondary" type="submit">Excluir minha avaliação</button>
+                            </form>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <p><a href="login.php?redirect=<?= rawurlencode('game.php?id=' . (int) $game['id']) ?>">Entre na sua conta</a> para avaliar este jogo.</p>
+                    <?php endif; ?>
+                    <?php foreach ($avaliacoes as $avaliacao): ?>
+                        <article class="review-item">
+                            <strong><?= h($avaliacao['nome']) ?></strong>
+                            <span><?= (int) $avaliacao['nota'] ?> / 5</span>
+                            <?php if ($avaliacao['comentario'] !== ''): ?><p><?= nl2br(h($avaliacao['comentario'])) ?></p><?php endif; ?>
+                        </article>
+                    <?php endforeach; ?>
+                    <?php if (!$avaliacoes): ?><p>Seja a primeira pessoa a avaliar este jogo.</p><?php endif; ?>
+                </section>
             <?php endif; ?>
         </div>
     </main>

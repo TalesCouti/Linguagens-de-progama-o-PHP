@@ -28,10 +28,11 @@ class Usuario
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function cadastrarUsuario(string $nome, string $email, string $senha, string $tipo): bool
+    public function cadastrarUsuario(string $nome, string $email, string $senha, string $tipo, ?string $telefone = null): bool
     {
         $nome = trim($nome);
         $email = strtolower(trim($email));
+        $telefone = $telefone === null ? null : trim($telefone);
 
         if (
             $nome === ''
@@ -40,6 +41,7 @@ class Usuario
             || strlen($email) > 150
             || strlen($senha) < 8
             || !in_array($tipo, ['admin', 'user'], true)
+            || ($telefone !== null && !preg_match('/^[0-9()+. -]{8,20}$/', $telefone))
         ) {
             return false;
         }
@@ -50,13 +52,14 @@ class Usuario
         }
 
         $stmt = $this->pdo->prepare(
-            'INSERT INTO usuarios (nome, email, senha, tipo)
-             VALUES (:nome, :email, :senha, :tipo)'
+            'INSERT INTO usuarios (nome, email, telefone, senha, tipo)
+             VALUES (:nome, :email, :telefone, :senha, :tipo)'
         );
 
         return $stmt->execute([
             ':nome' => $nome,
             ':email' => $email,
+            ':telefone' => $telefone,
             ':senha' => $hash,
             ':tipo' => $tipo,
         ]);
