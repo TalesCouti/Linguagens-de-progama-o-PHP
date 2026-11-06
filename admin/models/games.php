@@ -130,17 +130,6 @@ class Game
             return false;
         }
 
-        $this->pdo->exec(
-            'CREATE TABLE IF NOT EXISTS compras (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                usuario_id INT NOT NULL,
-                game_id INT NOT NULL,
-                comprado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                INDEX idx_compras_usuario (usuario_id),
-                INDEX idx_compras_game (game_id)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4'
-        );
-
         $this->pdo->beginTransaction();
         try {
             $stmt = $this->pdo->prepare(
@@ -156,10 +145,14 @@ class Game
             }
 
             $registro = $this->pdo->prepare(
-                'INSERT INTO compras (usuario_id, game_id)
-                 VALUES (:usuario_id, :game_id)'
+                'INSERT INTO compras (usuario_id, game_id, titulo, preco)
+                 SELECT :usuario_id, id, titulo, preco
+                 FROM games WHERE id = :game_id'
             );
             $registro->execute([':usuario_id' => $usuarioId, ':game_id' => $id]);
+            if ($registro->rowCount() !== 1) {
+                throw new RuntimeException('Não foi possível registrar a compra.');
+            }
             $this->pdo->commit();
         } catch (Throwable $e) {
             if ($this->pdo->inTransaction()) {
@@ -177,22 +170,11 @@ class Game
             return [];
         }
 
-        $this->pdo->exec(
-            'CREATE TABLE IF NOT EXISTS compras (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                usuario_id INT NOT NULL,
-                game_id INT NOT NULL,
-                comprado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                INDEX idx_compras_usuario (usuario_id),
-                INDEX idx_compras_game (game_id)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4'
-        );
-
         $stmt = $this->pdo->prepare(
-            'SELECT g.id, g.titulo, g.descricao, g.preco, g.categoria, g.imagem,
+            'SELECT g.id, g.id AS catalogo_id, c.titulo, g.descricao, c.preco, g.categoria, g.imagem,
                     c.comprado_em
              FROM compras c
-             INNER JOIN games g ON g.id = c.game_id
+             LEFT JOIN games g ON g.id = c.game_id
              WHERE c.usuario_id = :usuario_id
              ORDER BY c.comprado_em DESC, c.id DESC'
         );

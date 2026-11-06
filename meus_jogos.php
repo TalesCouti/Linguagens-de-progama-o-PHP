@@ -58,7 +58,11 @@ function h(string $value): string
             <?php if ($compras): ?>
                 <div class="game-grid purchased-games">
                     <?php foreach ($compras as $compra): ?>
-                        <a class="game-card" href="game.php?id=<?= (int) $compra['id'] ?>">
+                        <?php if ($compra['catalogo_id'] !== null): ?>
+                            <a class="game-card" href="game.php?id=<?= (int) $compra['catalogo_id'] ?>">
+                        <?php else: ?>
+                            <article class="game-card">
+                        <?php endif; ?>
                             <span class="game-card-media">
                                 <img class="game-cover" src="admin/public/imagens/<?= rawurlencode(imagemGameOuPlaceholder($compra['imagem'] ?? '')) ?>" alt="Capa de <?= h($compra['titulo']) ?>" loading="lazy" width="638" height="480">
                             </span>
@@ -70,10 +74,10 @@ function h(string $value): string
                                 </span>
                                 <span class="game-card-footer">
                                     <strong class="price">R$ <?= number_format((float) $compra['preco'], 2, ',', '.') ?></strong>
-                                    <span class="game-card-link">Ver jogo</span>
+                                    <span class="game-card-link"><?= $compra['catalogo_id'] !== null ? 'Ver jogo' : 'Fora do catálogo' ?></span>
                                 </span>
                             </span>
-                        </a>
+                        <?php if ($compra['catalogo_id'] !== null): ?></a><?php else: ?></article><?php endif; ?>
                     <?php endforeach; ?>
                 </div>
             <?php else: ?>
