@@ -1,15 +1,15 @@
 {
   "admin/config/conexao.php": {
-    "mtime": 1791132616.6390915,
-    "seen": 1791226276.73815,
-    "ast_hash": "94fdafae173eefed9703cf69f7e27965",
-    "semantic_hash": "94fdafae173eefed9703cf69f7e27965"
+    "mtime": 1794005650.9564517,
+    "seen": 1794233701.6506805,
+    "ast_hash": "199222bb36d60f0f835c6efe42952613",
+    "semantic_hash": ""
   },
   "admin/controllers/deletar_game.php": {
-    "mtime": 1791143356.5328825,
-    "seen": 1791226276.7381563,
-    "ast_hash": "cd6c061edca35e694ce5782599ee9e8e",
-    "semantic_hash": "cd6c061edca35e694ce5782599ee9e8e"
+    "mtime": 1791547495.3669465,
+    "seen": 1794233701.6506932,
+    "ast_hash": "f9a79015f67d0e7d85f46703f406aae8",
+    "semantic_hash": ""
   },
   "admin/controllers/deletar_usuario.php": {
     "mtime": 1791143355.8912797,
@@ -18,22 +18,16 @@
     "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
   },
   "admin/views/cadastrar_game.php": {
-    "mtime": 1791132616.6423464,
-    "seen": 1791226276.738161,
-    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
-    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+    "mtime": 1791547495.3539548,
+    "seen": 1794233701.6510656,
+    "ast_hash": "e93045379d5ca638d168082cac9f6715",
+    "semantic_hash": ""
   },
   "admin/views/cadastrar_usuario.php": {
-    "mtime": 1791132616.6423464,
-    "seen": 1791226276.738163,
-    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
-    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  "admin/views/editar_game.php": {
-    "mtime": 1791143582.661445,
-    "seen": 1791226276.7381644,
-    "ast_hash": "851299ae1b5563a8a8753846ca0c47da",
-    "semantic_hash": "851299ae1b5563a8a8753846ca0c47da"
+    "mtime": 1791547495.3499582,
+    "seen": 1794233701.6510682,
+    "ast_hash": "942f53ada99cd13e6ab19e348da02433",
+    "semantic_hash": ""
   },
   "admin/views/editar_usuario.php": {
     "mtime": 1791132616.64327,
@@ -42,45 +36,213 @@
     "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
   },
   "admin/views/gerenciar_games.php": {
-    "mtime": 1791132616.64327,
-    "seen": 1791226276.738168,
-    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
-    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+    "mtime": 1791482971.0680718,
+    "seen": 1794233701.6513822,
+    "ast_hash": "3fb7d32734cdec988a3e577f5854ca4f",
+    "semantic_hash": ""
   },
   "admin/views/ver_games.php": {
-    "mtime": 1791132616.64327,
-    "seen": 1791226276.7381697,
-    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
-    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+    "mtime": 1791547495.3519561,
+    "seen": 1794233701.651385,
+    "ast_hash": "0ae116f4c89772fb0e6f3822b9b30cce",
+    "semantic_hash": ""
   },
   "admin/views/ver_usuarios.php": {
-    "mtime": 1791132616.64327,
-    "seen": 1791226276.7381713,
-    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
-    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+    "mtime": 1791547495.3479588,
+    "seen": 1794233701.6513877,
+    "ast_hash": "bc1331debf269b01b00c59157106b4b1",
+    "semantic_hash": ""
   },
   "index.php": {
-    "mtime": 1791132616.6446326,
-    "seen": 1791226276.738173,
-    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
-    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+    "mtime": 1794232090.5276945,
+    "seen": 1794233701.6513963,
+    "ast_hash": "454607ecad26b7547c1776fe8e5ec79a",
+    "semantic_hash": ""
   },
   "login.php": {
-    "mtime": 1791132616.6451766,
-    "seen": 1791226276.7381787,
-    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
-    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+    "mtime": 1794232054.30085,
+    "seen": 1794233701.6513987,
+    "ast_hash": "01d02f75fdb7ea613773317e9fb3f97a",
+    "semantic_hash": ""
   },
   "testar_conexao.php": {
-    "mtime": 1791132616.6451766,
-    "seen": 1791226276.7381806,
-    "ast_hash": "dba53fd8a2da9a561b7a4d2ee456f33c",
-    "semantic_hash": "dba53fd8a2da9a561b7a4d2ee456f33c"
+    "mtime": 1791482606.412508,
+    "seen": 1794233701.6514058,
+    "ast_hash": "8a9451143902ce895ab8f0b1bda6d60a",
+    "semantic_hash": ""
   },
   "banco de dados/schema.txt": {
-    "mtime": 1791225753.1797264,
-    "seen": 1791226276.7381823,
-    "ast_hash": "8e644097d6b5875f308cb55ade0270dc",
-    "semantic_hash": "8e644097d6b5875f308cb55ade0270dc"
+    "mtime": 1794231969.9418004,
+    "seen": 1794233701.651412,
+    "ast_hash": "35726e3190a0e633198205c4050c6aa1",
+    "semantic_hash": ""
+  },
+  "admin/config/autenticacao.php": {
+    "mtime": 1791548256.8855689,
+    "seen": 1794233701.650672,
+    "ast_hash": "1f036fca78b9012e1f464efc57199d48",
+    "semantic_hash": ""
+  },
+  "admin/config/imagens.php": {
+    "mtime": 1791295932.8578212,
+    "seen": 1794233701.6506839,
+    "ast_hash": "5ace5c437f622ca8b0a2f95790610ee3",
+    "semantic_hash": ""
+  },
+  "admin/controllers/adicionar_saldo.php": {
+    "mtime": 1794232052.553749,
+    "seen": 1794233701.6506865,
+    "ast_hash": "920fbbb69a79152498ccc414af41c63d",
+    "semantic_hash": ""
+  },
+  "admin/controllers/avaliar_game.php": {
+    "mtime": 1794004968.1355703,
+    "seen": 1794233701.650689,
+    "ast_hash": "d580bd96716e45bf4688f02fbdf924f8",
+    "semantic_hash": ""
+  },
+  "admin/controllers/comprar_game.php": {
+    "mtime": 1794232007.4711142,
+    "seen": 1794233701.6506906,
+    "ast_hash": "1cb077e9c3ec7a8e562db403020a9e47",
+    "semantic_hash": ""
+  },
+  "admin/controllers/wishlist.php": {
+    "mtime": 1794004947.4264264,
+    "seen": 1794233701.651053,
+    "ast_hash": "93ad6353f8812eae2c65787ff78b0945",
+    "semantic_hash": ""
+  },
+  "admin/models/carteiras.php": {
+    "mtime": 1794231964.3271363,
+    "seen": 1794233701.6510553,
+    "ast_hash": "d3312c8607512653ae55686430f8b0b4",
+    "semantic_hash": ""
+  },
+  "admin/models/games.php": {
+    "mtime": 1794232005.1787405,
+    "seen": 1794233701.6510575,
+    "ast_hash": "2028f4c33816beed0ed3e8bc7f549b84",
+    "semantic_hash": ""
+  },
+  "admin/models/interacoes.php": {
+    "mtime": 1794004944.7512515,
+    "seen": 1794233701.6510596,
+    "ast_hash": "0af6faca7e896488bad40a28afe2eb89",
+    "semantic_hash": ""
+  },
+  "admin/models/usuarios.php": {
+    "mtime": 1794005088.3319583,
+    "seen": 1794233701.6510625,
+    "ast_hash": "47c52fd4b95d3a7b784b4b424b4672c2",
+    "semantic_hash": ""
+  },
+  "admin/views/editar_games.php": {
+    "mtime": 1791547495.3659475,
+    "seen": 1794233701.65107,
+    "ast_hash": "0be8be984fb441d8e13474018f5e9208",
+    "semantic_hash": ""
+  },
+  "cadastro.php": {
+    "mtime": 1794005090.9334707,
+    "seen": 1794233701.6513898,
+    "ast_hash": "d65f6fa27ace0dd950f7fb26e2804276",
+    "semantic_hash": ""
+  },
+  "carteira.php": {
+    "mtime": 1794232050.845874,
+    "seen": 1794233701.6513922,
+    "ast_hash": "7ada7c5ae550bb0da7150941fdff162c",
+    "semantic_hash": ""
+  },
+  "game.php": {
+    "mtime": 1794232918.7723546,
+    "seen": 1794233701.6513941,
+    "ast_hash": "0d17b924ea04aa53e69517e4331e25bb",
+    "semantic_hash": ""
+  },
+  "logout.php": {
+    "mtime": 1791482971.0630753,
+    "seen": 1794233701.6514008,
+    "ast_hash": "d325a5ef43de8731a5f3201648fb4b69",
+    "semantic_hash": ""
+  },
+  "meus_jogos.php": {
+    "mtime": 1794232092.3311393,
+    "seen": 1794233701.651403,
+    "ast_hash": "643f9f6aabdd7061671151c67c942423",
+    "semantic_hash": ""
+  },
+  "wishlist.php": {
+    "mtime": 1794232094.125486,
+    "seen": 1794233701.6514077,
+    "ast_hash": "de169b95aeef0545ace65bd541e2866d",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1794232098.0427651,
+    "seen": 1794233701.6514096,
+    "ast_hash": "898347fef335b6be925e1bf312ea035f",
+    "semantic_hash": ""
+  },
+  "comandodeslogargit.txt": {
+    "mtime": 1791132616.6441534,
+    "seen": 1794233701.651414,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20261005_193100_aab005a5_pode_criar_models_compativeis.md": {
+    "mtime": 1791228660.5570695,
+    "seen": 1794233701.6514158,
+    "ast_hash": "ea7aba0d58271eb417919888ebddd41a",
+    "semantic_hash": ""
+  },
+  "admin/public/imagens/12.png": {
+    "mtime": 1791295702.3108728,
+    "seen": 1794233701.6514175,
+    "ast_hash": "45f5add57c91d89d3a2dc109bec29eb6",
+    "semantic_hash": ""
+  },
+  "admin/public/imagens/TheLastofUs.png": {
+    "mtime": 1791484672.074364,
+    "seen": 1794233701.6514196,
+    "ast_hash": "969d84a3766a5f6bef7ba76abb434124",
+    "semantic_hash": ""
+  },
+  "admin/public/imagens/bloodborne.png": {
+    "mtime": 1791483913.6883101,
+    "seen": 1794233701.6514215,
+    "ast_hash": "5eab64351792507bee21331833b73560",
+    "semantic_hash": ""
+  },
+  "admin/public/imagens/game-31de784ea91f2c47.png": {
+    "mtime": 1791486129.7196095,
+    "seen": 1794233701.6514232,
+    "ast_hash": "45f5add57c91d89d3a2dc109bec29eb6",
+    "semantic_hash": ""
+  },
+  "admin/public/imagens/gow.png": {
+    "mtime": 1791484510.8406353,
+    "seen": 1794233701.6514251,
+    "ast_hash": "3fd98a2e26f4b93e2a71136eb886db20",
+    "semantic_hash": ""
+  },
+  "admin/public/imagens/hero-controller.png": {
+    "mtime": 1791482261.2576709,
+    "seen": 1794233701.6514268,
+    "ast_hash": "851f417c114c9b37eafd6a8c89ff81e4",
+    "semantic_hash": ""
+  },
+  "admin/public/imagens/logo.png": {
+    "mtime": 1791482502.6460896,
+    "seen": 1794233701.6514287,
+    "ast_hash": "2f33540c2467717d46dc6493c372313f",
+    "semantic_hash": ""
+  },
+  "admin/public/imagens/sem-imagem.png": {
+    "mtime": 1791295818.8164594,
+    "seen": 1794233701.6514306,
+    "ast_hash": "698c383fa33ee763b00b7543e30ab7c2",
+    "semantic_hash": ""
   }
 }

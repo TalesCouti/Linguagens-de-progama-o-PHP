@@ -1,0 +1,267 @@
+{
+  "communities": {
+    "0": [
+      "banco_de_dados_schema_avaliacoes",
+      "banco_de_dados_schema_carteiras",
+      "banco_de_dados_schema_compras",
+      "banco_de_dados_schema_games",
+      "banco_de_dados_schema_movimentacoes_carteira",
+      "banco_de_dados_schema_seed_games",
+      "banco_de_dados_schema_seed_usuarios",
+      "banco_de_dados_schema_sha2",
+      "banco_de_dados_schema_usuarios",
+      "banco_de_dados_schema_wishlist"
+    ],
+    "2": [
+      "admin_config_conexao"
+    ],
+    "3": [
+      "admin_controllers_deletar_game"
+    ],
+    "4": [
+      "admin_controllers_deletar_usuario"
+    ],
+    "5": [
+      "admin_views_cadastrar_game"
+    ],
+    "6": [
+      "admin_views_cadastrar_usuario"
+    ],
+    "7": [
+      "admin_models_games",
+      "admin_models_games_game",
+      "admin_models_games_game_buscargameporid",
+      "admin_models_games_game_cadastrargame",
+      "admin_models_games_game_comprargame",
+      "admin_models_games_game_construct",
+      "admin_models_games_game_dadosvalidos",
+      "admin_models_games_game_deletargame",
+      "admin_models_games_game_editargame",
+      "admin_models_games_game_listarcomprasdousuario",
+      "admin_models_games_game_listargames",
+      "admin_models_games_game_preencher",
+      "admin_models_games_php_pdo"
+    ],
+    "8": [
+      "admin_views_editar_usuario"
+    ],
+    "9": [
+      "admin_views_gerenciar_games"
+    ],
+    "10": [
+      "admin_views_ver_games",
+      "admin_views_ver_games_h"
+    ],
+    "11": [
+      "admin_views_ver_usuarios",
+      "admin_views_ver_usuarios_h"
+    ],
+    "12": [
+      "index",
+      "index_h"
+    ],
+    "13": [
+      "login",
+      "login_destinologinseguro"
+    ],
+    "14": [
+      "testar_conexao"
+    ],
+    "15": [
+      "admin_config_autenticacao",
+      "admin_config_autenticacao_autenticarusuario",
+      "admin_config_autenticacao_encerrarsessao",
+      "admin_config_autenticacao_exigiradministrador",
+      "admin_config_autenticacao_exigirlogin",
+      "admin_config_autenticacao_gerartokencsrf",
+      "admin_config_autenticacao_iniciarsessaosegura",
+      "admin_config_autenticacao_php_pdo",
+      "admin_config_autenticacao_tokencsrfvalido",
+      "admin_config_autenticacao_usuarioadministradorautenticado",
+      "admin_config_autenticacao_usuarioautenticado"
+    ],
+    "16": [
+      "admin_models_interacoes",
+      "admin_models_interacoes_interacoes",
+      "admin_models_interacoes_interacoes_adicionarwishlist",
+      "admin_models_interacoes_interacoes_construct",
+      "admin_models_interacoes_interacoes_estanawishlist",
+      "admin_models_interacoes_interacoes_listaravaliacoes",
+      "admin_models_interacoes_interacoes_listarwishlist",
+      "admin_models_interacoes_interacoes_removeravaliacao",
+      "admin_models_interacoes_interacoes_removerwishlist",
+      "admin_models_interacoes_interacoes_salvaravaliacao",
+      "admin_models_interacoes_php_pdo"
+    ],
+    "17": [
+      "admin_models_carteiras",
+      "admin_models_carteiras_carteira",
+      "admin_models_carteiras_carteira_adicionarsaldo",
+      "admin_models_carteiras_carteira_construct",
+      "admin_models_carteiras_carteira_consultarsaldo",
+      "admin_models_carteiras_carteira_listarmovimentacoes",
+      "admin_models_carteiras_php_pdo"
+    ],
+    "18": [
+      "admin_models_usuarios",
+      "admin_models_usuarios_php_pdo",
+      "admin_models_usuarios_usuario",
+      "admin_models_usuarios_usuario_cadastrarusuario",
+      "admin_models_usuarios_usuario_construct",
+      "admin_models_usuarios_usuario_listarusuarios"
+    ],
+    "19": [
+      "readme",
+      "readme_entrega_acadêmica",
+      "readme_funcionalidades",
+      "readme_instalação",
+      "readme_modelo_de_dados",
+      "readme_playstation_store"
+    ],
+    "20": [
+      "graphify_out_memory_query_20261005_193100_aab005a5_pode_criar_models_compativeis",
+      "graphify_out_memory_query_20261005_193100_aab005a5_pode_criar_models_compativeis_answer",
+      "graphify_out_memory_query_20261005_193100_aab005a5_pode_criar_models_compativeis_outcome",
+      "graphify_out_memory_query_20261005_193100_aab005a5_pode_criar_models_compativeis_q_pode_criar_models_compativeis",
+      "graphify_out_memory_query_20261005_193100_aab005a5_pode_criar_models_compativeis_source_nodes"
+    ],
+    "21": [
+      "admin_config_imagens",
+      "admin_config_imagens_diretorioimagensgames",
+      "admin_config_imagens_imagemgameouplaceholder",
+      "admin_config_imagens_salvarimagemgame"
+    ],
+    "22": [
+      "cadastro",
+      "cadastro_h"
+    ],
+    "23": [
+      "carteira",
+      "carteira_h"
+    ],
+    "24": [
+      "game",
+      "game_h"
+    ],
+    "25": [
+      "meus_jogos",
+      "meus_jogos_h"
+    ],
+    "26": [
+      "wishlist",
+      "wishlist_h"
+    ],
+    "27": [
+      "admin_controllers_adicionar_saldo"
+    ],
+    "28": [
+      "admin_controllers_avaliar_game"
+    ],
+    "29": [
+      "admin_controllers_comprar_game"
+    ],
+    "30": [
+      "admin_controllers_wishlist"
+    ],
+    "31": [
+      "admin_views_editar_games"
+    ],
+    "32": [
+      "logout"
+    ]
+  },
+  "cohesion": {
+    "0": 0.24444444444444444,
+    "2": 1.0,
+    "3": 1.0,
+    "4": 1.0,
+    "5": 1.0,
+    "6": 1.0,
+    "7": 0.24358974358974358,
+    "8": 1.0,
+    "9": 1.0,
+    "10": 1.0,
+    "11": 1.0,
+    "12": 1.0,
+    "13": 1.0,
+    "14": 1.0,
+    "15": 0.36363636363636365,
+    "16": 0.21818181818181817,
+    "17": 0.3333333333333333,
+    "18": 0.4,
+    "19": 0.3333333333333333,
+    "20": 0.4,
+    "21": 0.8333333333333334,
+    "22": 1.0,
+    "23": 1.0,
+    "24": 1.0,
+    "25": 1.0,
+    "26": 1.0,
+    "27": 1.0,
+    "28": 1.0,
+    "29": 1.0,
+    "30": 1.0,
+    "31": 1.0,
+    "32": 1.0
+  },
+  "gods": [
+    {
+      "id": "admin_models_games_game",
+      "label": "Game",
+      "degree": 12
+    },
+    {
+      "id": "admin_models_interacoes_interacoes",
+      "label": "Interacoes",
+      "degree": 10
+    },
+    {
+      "id": "admin_config_autenticacao_iniciarsessaosegura",
+      "label": "iniciarSessaoSegura()",
+      "degree": 7
+    },
+    {
+      "id": "admin_models_carteiras_carteira",
+      "label": "Carteira",
+      "degree": 6
+    },
+    {
+      "id": "banco_de_dados_schema_usuarios",
+      "label": "usuarios table",
+      "degree": 6
+    },
+    {
+      "id": "admin_models_usuarios_usuario",
+      "label": "Usuario",
+      "degree": 5
+    },
+    {
+      "id": "admin_config_autenticacao_usuarioautenticado",
+      "label": "usuarioAutenticado()",
+      "degree": 5
+    },
+    {
+      "id": "readme_playstation_store",
+      "label": "PlayStation Store",
+      "degree": 5
+    },
+    {
+      "id": "admin_config_autenticacao_usuarioadministradorautenticado",
+      "label": "usuarioAdministradorAutenticado()",
+      "degree": 4
+    },
+    {
+      "id": "graphify_out_memory_query_20261005_193100_aab005a5_pode_criar_models_compativeis_q_pode_criar_models_compativeis",
+      "label": "Q: pode criar models compativeis?",
+      "degree": 4
+    }
+  ],
+  "surprises": [],
+  "questions": [
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `Entrega acadêmica`, `Funcionalidades`, `Instalação` to the rest of the system?",
+      "why": "11 weakly-connected nodes found - possible documentation gaps or missing edges."
+    }
+  ]
+}
