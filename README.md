@@ -9,12 +9,14 @@ Loja de jogos em PHP 8, MySQL e PDO, com organização MVC nas áreas de modelos
 - Wishlist pessoal para adicionar e remover jogos.
 - Avaliações por jogo: nota de 1 a 5, comentário opcional, edição e exclusão da própria avaliação.
 - Área administrativa para gerenciar jogos e usuários.
+- Carteira com recarga de saldo, histórico de movimentações e compras condicionadas ao saldo disponível.
 
 ## Instalação
 
 1. Use PHP 8, Apache e MySQL (por exemplo, XAMPP). Configure os dados de acesso em `admin/config/conexao.php`.
 2. Para uma instalação nova, importe `banco de dados/schema.txt` no MySQL.
 3. Para um banco já criado com a versão anterior, execute uma vez `banco de dados/migracao_interacoes.sql` no banco `loja_games`. Se a coluna `telefone` já existir, ignore somente o primeiro `ALTER TABLE`.
+   Em seguida, execute `banco de dados/migracao_carteira.sql` para criar as tabelas da carteira e os saldos iniciais.
 4. Acesse `http://localhost/loja_games/`.
 
 Contas iniciais após importar o schema: `evandro@gmail.com` / `admin123` (admin) e `pedro@gmail.com` / `user12345` (cliente). Altere as senhas em ambientes compartilhados.

@@ -37,6 +37,7 @@ function h(string $value): string
                 <?php if (usuarioAutenticado()): ?>
                     <a class="nav-link" href="meus_jogos.php">Meus jogos</a>
                     <a class="nav-link" href="wishlist.php">Wishlist</a>
+                    <a class="nav-link nav-wallet" href="carteira.php">Carteira</a>
                 <?php endif; ?>
                 <?php if (usuarioAdministradorAutenticado()): ?>
                     <a class="nav-link" href="admin/views/ver_games.php">Painel</a>

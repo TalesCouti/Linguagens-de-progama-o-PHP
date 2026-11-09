@@ -124,34 +124,70 @@ class Game
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function comprarGame(int $id, int $usuarioId): bool
+    public function comprarGame(int $id, int $usuarioId): string
     {
         if ($id <= 0 || $usuarioId <= 0) {
-            return false;
+            return 'sem_estoque';
         }
 
         $this->pdo->beginTransaction();
         try {
-            $stmt = $this->pdo->prepare(
-                'UPDATE games
-                 SET estoque = estoque - 1
-                 WHERE id = :id AND estoque > 0'
+            $buscar = $this->pdo->prepare(
+                'SELECT titulo, preco, estoque FROM games WHERE id = :id FOR UPDATE'
             );
-            $stmt->execute([':id' => $id]);
-
-            if ($stmt->rowCount() !== 1) {
+            $buscar->execute([':id' => $id]);
+            $game = $buscar->fetch(PDO::FETCH_ASSOC);
+            if (!$game || (int) $game['estoque'] < 1) {
                 $this->pdo->rollBack();
-                return false;
+                return 'sem_estoque';
+            }
+
+            $this->pdo->prepare('INSERT IGNORE INTO carteiras (usuario_id) VALUES (:usuario_id)')
+                ->execute([':usuario_id' => $usuarioId]);
+            if ((float) $game['preco'] > 0) {
+                $descontar = $this->pdo->prepare(
+                    'UPDATE carteiras SET saldo = saldo - :preco
+                     WHERE usuario_id = :usuario_id AND saldo >= :saldo_minimo'
+                );
+                $descontar->execute([
+                    ':preco' => $game['preco'],
+                    ':usuario_id' => $usuarioId,
+                    ':saldo_minimo' => $game['preco'],
+                ]);
+                if ($descontar->rowCount() !== 1) {
+                    $this->pdo->rollBack();
+                    return 'saldo_insuficiente';
+                }
+            }
+
+            $atualizarEstoque = $this->pdo->prepare(
+                'UPDATE games SET estoque = estoque - 1 WHERE id = :id AND estoque > 0'
+            );
+            $atualizarEstoque->execute([':id' => $id]);
+            if ($atualizarEstoque->rowCount() !== 1) {
+                throw new RuntimeException('Não foi possível atualizar o estoque.');
             }
 
             $registro = $this->pdo->prepare(
                 'INSERT INTO compras (usuario_id, game_id, titulo, preco)
-                 SELECT :usuario_id, id, titulo, preco
-                 FROM games WHERE id = :game_id'
+                 VALUES (:usuario_id, :game_id, :titulo, :preco)'
             );
-            $registro->execute([':usuario_id' => $usuarioId, ':game_id' => $id]);
-            if ($registro->rowCount() !== 1) {
-                throw new RuntimeException('Não foi possível registrar a compra.');
+            $registro->execute([
+                ':usuario_id' => $usuarioId,
+                ':game_id' => $id,
+                ':titulo' => $game['titulo'],
+                ':preco' => $game['preco'],
+            ]);
+            if ((float) $game['preco'] > 0) {
+                $movimento = $this->pdo->prepare(
+                    "INSERT INTO movimentacoes_carteira (usuario_id, tipo, valor, descricao)
+                     VALUES (:usuario_id, 'compra', :valor, :descricao)"
+                );
+                $movimento->execute([
+                    ':usuario_id' => $usuarioId,
+                    ':valor' => $game['preco'],
+                    ':descricao' => 'Compra: ' . $game['titulo'],
+                ]);
             }
             $this->pdo->commit();
         } catch (Throwable $e) {
@@ -161,7 +197,7 @@ class Game
             throw $e;
         }
 
-        return true;
+        return 'sucesso';
     }
 
     public function listarComprasDoUsuario(int $usuarioId): array

@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/admin/config/autenticacao.php';
 require_once __DIR__ . '/admin/models/games.php';
+require_once __DIR__ . '/admin/models/carteiras.php';
 require_once __DIR__ . '/admin/models/interacoes.php';
 require_once __DIR__ . '/admin/config/imagens.php';
 
@@ -9,6 +10,8 @@ iniciarSessaoSegura();
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 $gameModel = new Game();
 $game = $id ? $gameModel->buscarGamePorId($id) : false;
+$saldoCarteira = usuarioAutenticado() ? (new Carteira())->consultarSaldo((int) $_SESSION['usuario_id']) : null;
+$saldoInsuficiente = $game && $saldoCarteira !== null && (float) $saldoCarteira < (float) $game['preco'];
 $interacoes = new Interacoes();
 $avaliacoes = $game ? $interacoes->listarAvaliacoes((int) $game['id']) : [];
 $naWishlist = $game && usuarioAutenticado() ? $interacoes->estaNaWishlist((int) $_SESSION['usuario_id'], (int) $game['id']) : false;
@@ -56,6 +59,7 @@ $tituloPagina = $game ? $game['titulo'] . ' | PlayStation Store' : 'Jogo não en
                 <?php if (usuarioAutenticado()): ?>
                     <a class="nav-link" href="meus_jogos.php">Meus jogos</a>
                     <a class="nav-link" href="wishlist.php">Wishlist</a>
+                    <a class="nav-link nav-wallet" href="carteira.php">Carteira</a>
                 <?php endif; ?>
                 <?php if (usuarioAdministradorAutenticado()): ?>
                     <a class="nav-link" href="admin/views/ver_games.php">Painel</a>
@@ -94,9 +98,11 @@ $tituloPagina = $game ? $game['titulo'] . ' | PlayStation Store' : 'Jogo não en
                         <p class="rating-summary"><?= $media === null ? 'Ainda sem avaliações' : number_format($media, 1, ',', '.') . ' / 5 · ' . count($avaliacoes) . ' avaliação(ões)' ?></p>
 
                         <?php if (($_GET['compra'] ?? '') === 'sucesso'): ?>
-                            <div class="message" role="status">Compra realizada. O estoque foi atualizado.</div>
+                            <div class="message" role="status">Compra realizada. O jogo está na sua biblioteca e o saldo foi atualizado.</div>
                         <?php elseif (($_GET['compra'] ?? '') === 'sem_estoque'): ?>
                             <div class="message message-error" role="alert">Este jogo ficou sem estoque antes da compra.</div>
+                        <?php elseif (($_GET['compra'] ?? '') === 'saldo_insuficiente'): ?>
+                            <div class="message message-error" role="alert">Saldo insuficiente para esta compra. <a href="carteira.php?jogo=<?= (int) $game['id'] ?>">Adicione saldo à carteira</a> para continuar.</div>
                         <?php endif; ?>
 
                         <div class="purchase-panel">
@@ -107,9 +113,14 @@ $tituloPagina = $game ? $game['titulo'] . ' | PlayStation Store' : 'Jogo não en
                             <div class="stock-status<?= $disponivel ? '' : ' sold-out' ?>">
                                 <?= $disponivel ? (int) $game['estoque'] . ' unidade(s) em estoque' : 'Produto esgotado' ?>
                             </div>
+                            <?php if ($saldoCarteira !== null): ?>
+                                <p class="wallet-available">Seu saldo: <strong>R$ <?= number_format((float) $saldoCarteira, 2, ',', '.') ?></strong> · <a href="carteira.php?jogo=<?= (int) $game['id'] ?>">Adicionar saldo</a></p>
+                            <?php endif; ?>
 
                             <?php if (!$disponivel): ?>
                                 <button type="button" disabled>Esgotado</button>
+                            <?php elseif ($saldoInsuficiente): ?>
+                                <a class="button" href="carteira.php?jogo=<?= (int) $game['id'] ?>">Adicionar saldo para comprar</a>
                             <?php elseif (usuarioAutenticado()): ?>
                                 <form class="purchase-form" method="post" action="admin/controllers/comprar_game.php">
                                     <input type="hidden" name="csrf_token" value="<?= h(gerarTokenCsrf()) ?>">

@@ -397,6 +397,20 @@ input[type="file"]::file-selector-button { min-height: 36px; margin-right: 12px;
 .purchase-label { display: block; color: var(--muted); }
 .game-detail-price { font-size: 2rem; color: var(--accent); }
 .purchase-note { color: var(--subtle); font-size: .85rem; }
+.wallet-available { margin: 0; color: var(--muted); }
+.wallet-available strong { color: var(--text); }
+.wallet-layout { display: grid; grid-template-columns: minmax(260px, .8fr) minmax(0, 1.2fr); gap: 20px; align-items: start; }
+.wallet-panel { padding: clamp(24px, 4vw, 36px); border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+.wallet-panel h2 { margin-top: 0; }
+.wallet-balance { display: block; margin: 20px 0 30px; color: var(--accent); font-size: clamp(2.4rem, 5vw, 4rem); font-variant-numeric: tabular-nums; }
+.wallet-form { display: grid; gap: 12px; }
+.wallet-form button { justify-self: start; }
+.wallet-history { margin: 0; padding: 0; list-style: none; }
+.wallet-history li { display: flex; justify-content: space-between; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+.wallet-history li:last-child { border-bottom: 0; }
+.wallet-history time { display: block; margin-top: 4px; color: var(--subtle); font-size: .85rem; }
+.wallet-credit { color: var(--accent); font-weight: 800; white-space: nowrap; }
+.wallet-debit { color: var(--text); font-weight: 800; white-space: nowrap; }
 .wishlist-action { margin-top: 16px; }
 .reviews { max-width: 840px; margin-top: 64px; }
 .review-form { display: grid; gap: 12px; margin: 24px 0; }
@@ -429,6 +443,7 @@ input[type="file"]::file-selector-button { min-height: 36px; margin-right: 12px;
 }
 
 @media (max-width: 860px) {
+    .wallet-layout { grid-template-columns: 1fr; }
     .game-detail { grid-template-columns: 1fr; }
     .hero, .form-layout, .auth-layout { grid-template-columns: 1fr; }
     .hero { min-height: auto; padding-top: 44px; }
@@ -453,7 +468,7 @@ input[type="file"]::file-selector-button { min-height: 36px; margin-right: 12px;
 
 @media (max-width: 620px) {
     .nav { min-height: 64px; }
-    .nav-links .nav-link:not(.nav-primary) { display: none; }
+    .nav-links .nav-link:not(.nav-primary):not(.nav-wallet) { display: none; }
     .hero h1 { font-size: clamp(3rem, 16vw, 4.8rem); }
     .hero-media, .hero-media img { min-height: 320px; }
     .section, .page { padding: 52px 0; }

@@ -10,7 +10,7 @@ function destinoLoginSeguro(mixed $destino): ?string
         return null;
     }
 
-    return ($destino === 'meus_jogos.php' || $destino === 'wishlist.php' || preg_match('/\Agame\.php\?id=[1-9]\d*\z/D', $destino) === 1) ? $destino : null;
+    return (in_array($destino, ['meus_jogos.php', 'wishlist.php', 'carteira.php'], true) || preg_match('/\Agame\.php\?id=[1-9]\d*\z/D', $destino) === 1) ? $destino : null;
 }
 
 $destinoAposLogin = destinoLoginSeguro($_POST['redirect'] ?? $_GET['redirect'] ?? null);
