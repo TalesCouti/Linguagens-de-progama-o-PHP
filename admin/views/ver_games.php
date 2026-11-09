@@ -31,6 +31,9 @@ function h(string $value): string
                 <a class="nav-link" href="../../index.php">Ver loja</a>
                 <a class="nav-link" aria-current="page" href="ver_games.php">Jogos</a>
                 <a class="nav-link" href="ver_usuarios.php">Usuários</a>
+                <a class="nav-link" href="gerenciar_taxonomia.php?tipo=categorias">Categorias</a>
+                <a class="nav-link" href="gerenciar_taxonomia.php?tipo=plataformas">Plataformas</a>
+                <a class="nav-link" href="gerenciar_avaliacoes.php">Avaliações</a>
                 <a class="nav-link nav-primary" href="../../logout.php">Sair</a>
             </div>
         </nav>
@@ -61,6 +64,7 @@ function h(string $value): string
                             <th>Preço</th>
                             <th>Estoque</th>
                             <th>Categoria</th>
+                            <th>Plataforma</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -77,6 +81,7 @@ function h(string $value): string
                                 <td class="price">R$ <?= number_format((float) $game['preco'], 2, ',', '.') ?></td>
                                 <td><span class="stock"><?= (int) $game['estoque'] ?> unidades</span></td>
                                 <td><span class="category"><?= h($game['categoria'] ?: 'Sem categoria') ?></span></td>
+                                <td><span class="category"><?= h($game['plataforma'] ?: 'Sem plataforma') ?></span></td>
                                 <td>
                                     <div class="row-actions">
                                         <a class="button button-secondary" href="editar_games.php?id=<?= (int) $game['id'] ?>">Editar</a>

@@ -1,7 +1,9 @@
 <?php
 define('servidor', 'localhost');
 define('usuario', 'root');
-define('senha', '3621');
+$configuracaoLocal = __DIR__ . '/database.local.php';
+$dadosLocais = is_file($configuracaoLocal) ? require $configuracaoLocal : [];
+define('senha', (string) (getenv('DB_PASSWORD') ?: ($dadosLocais['password'] ?? '')));
 define('bd', 'loja_games');
 
 try {

@@ -29,6 +29,9 @@ function h(string $valor): string
             <div class="nav-links">
                 <a class="nav-link" href="../../index.php">Ver loja</a>
                 <a class="nav-link" href="ver_games.php">Jogos</a>
+                <a class="nav-link" href="gerenciar_taxonomia.php?tipo=categorias">Categorias</a>
+                <a class="nav-link" href="gerenciar_taxonomia.php?tipo=plataformas">Plataformas</a>
+                <a class="nav-link" href="gerenciar_avaliacoes.php">Avaliações</a>
                 <a class="nav-link" aria-current="page" href="ver_usuarios.php">Usuários</a>
                 <a class="nav-link nav-primary" href="../../logout.php">Sair</a>
             </div>
@@ -46,6 +49,12 @@ function h(string $valor): string
 
         <?php if (isset($_GET['cadastrado'])): ?>
             <div class="message" role="status">Usuário cadastrado com sucesso.</div>
+        <?php elseif (isset($_GET['editado'])): ?>
+            <div class="message" role="status">Usuário atualizado com sucesso.</div>
+        <?php elseif (isset($_GET['deletado'])): ?>
+            <div class="message" role="status">Usuário excluído com sucesso.</div>
+        <?php elseif (isset($_GET['erro'])): ?>
+            <div class="message message-error" role="alert">Não foi possível excluir o usuário.</div>
         <?php endif; ?>
 
         <div class="table-shell">
@@ -54,8 +63,10 @@ function h(string $valor): string
                     <tr>
                         <th>Nome</th>
                         <th>E-mail</th>
+                        <th>Telefone</th>
                         <th>Tipo</th>
                         <th>Cadastrado em</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,8 +74,12 @@ function h(string $valor): string
                         <tr>
                             <td><div class="table-title"><?= h($usuario['nome']) ?></div></td>
                             <td><?= h($usuario['email']) ?></td>
+                            <td><?= h($usuario['telefone'] ?? '') ?></td>
                             <td><span class="category"><?= $usuario['tipo'] === 'admin' ? 'Administrador' : 'Usuário' ?></span></td>
                             <td><?= h(date('d/m/Y H:i', strtotime($usuario['created_at']))) ?></td>
+                            <td><div class="row-actions"><a class="button button-secondary" href="editar_usuario.php?id=<?= (int) $usuario['id'] ?>">Editar</a>
+                                <?php if ((int) $usuario['id'] !== (int) $_SESSION['usuario_id']): ?><form method="post" action="../controllers/deletar_usuario.php" onsubmit="return confirm('Excluir este usuário e seus dados associados?')"><input type="hidden" name="csrf_token" value="<?= h(gerarTokenCsrf()) ?>"><input type="hidden" name="id" value="<?= (int) $usuario['id'] ?>"><button class="button button-danger" type="submit">Excluir</button></form><?php endif; ?>
+                            </div></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

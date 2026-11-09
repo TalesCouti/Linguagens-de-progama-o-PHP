@@ -3,9 +3,12 @@ require_once __DIR__ . '/../config/autenticacao.php';
 exigirAdministrador('../../login.php');
 
 require_once '../models/games.php';
+require_once '../models/taxonomias.php';
 require_once '../config/imagens.php';
 
 $mensagem = '';
+$categorias = (new Categoria())->listar();
+$plataformas = (new Plataforma())->listar();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
@@ -21,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'preco' => $_POST['preco'],
             'estoque' => $_POST['estoque'],
             'categoria' => $_POST['categoria'],
+            'plataforma' => $_POST['plataforma'],
             'imagem' => $imagemNome ?? '',
         ]);
 
@@ -29,6 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $mensagem = 'Erro ao cadastrar no banco de dados.';
         }
+    } catch (PDOException $e) {
+        $mensagem = 'Selecione uma categoria e uma plataforma válidas.';
     } catch (RuntimeException $e) {
         $mensagem = $e->getMessage();
     }
@@ -88,7 +94,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <div class="field field-full">
                             <label for="categoria">Categoria</label>
-                            <input id="categoria" type="text" name="categoria" placeholder="Aventura, ação, estratégia..." required>
+                            <select id="categoria" name="categoria" required><option value="">Selecione</option><?php foreach ($categorias as $categoria): ?><option value="<?= htmlspecialchars($categoria['nome'], ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($categoria['nome'], ENT_QUOTES, 'UTF-8') ?></option><?php endforeach; ?></select>
+                        </div>
+                        <div class="field field-full">
+                            <label for="plataforma">Plataforma</label>
+                            <select id="plataforma" name="plataforma" required><option value="">Selecione</option><?php foreach ($plataformas as $plataforma): ?><option value="<?= htmlspecialchars($plataforma['nome'], ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($plataforma['nome'], ENT_QUOTES, 'UTF-8') ?></option><?php endforeach; ?></select>
                         </div>
                         <div class="field field-full">
                             <label for="imagem">Imagem</label>

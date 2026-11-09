@@ -3,6 +3,7 @@ require_once __DIR__ . '/admin/config/autenticacao.php';
 require_once __DIR__ . '/admin/models/games.php';
 require_once __DIR__ . '/admin/models/carteiras.php';
 require_once __DIR__ . '/admin/models/interacoes.php';
+require_once __DIR__ . '/admin/models/avaliacoes.php';
 require_once __DIR__ . '/admin/config/imagens.php';
 
 iniciarSessaoSegura();
@@ -13,7 +14,7 @@ $game = $id ? $gameModel->buscarGamePorId($id) : false;
 $saldoCarteira = usuarioAutenticado() ? (new Carteira())->consultarSaldo((int) $_SESSION['usuario_id']) : null;
 $saldoInsuficiente = $game && $saldoCarteira !== null && (float) $saldoCarteira < (float) $game['preco'];
 $interacoes = new Interacoes();
-$avaliacoes = $game ? $interacoes->listarAvaliacoes((int) $game['id']) : [];
+$avaliacoes = $game ? (new Avaliacao())->listarPorJogo((int) $game['id']) : [];
 $naWishlist = $game && usuarioAutenticado() ? $interacoes->estaNaWishlist((int) $_SESSION['usuario_id'], (int) $game['id']) : false;
 $minhaAvaliacao = null;
 foreach ($avaliacoes as $avaliacao) {
@@ -93,6 +94,7 @@ $tituloPagina = $game ? $game['titulo'] . ' | PlayStation Store' : 'Jogo não en
 
                     <div class="game-detail-content">
                         <p class="game-category"><?= h($game['categoria'] ?: 'Sem categoria') ?></p>
+                        <p class="game-category"><?= h($game['plataforma'] ?: 'Plataforma não informada') ?></p>
                         <h1><?= h($game['titulo']) ?></h1>
                         <p class="game-detail-description"><?= h($game['descricao'] ?: 'Uma nova experiência espera por você.') ?></p>
                         <p class="rating-summary"><?= $media === null ? 'Ainda sem avaliações' : number_format($media, 1, ',', '.') . ' / 5 · ' . count($avaliacoes) . (count($avaliacoes) === 1 ? ' avaliação' : ' avaliações') ?></p>

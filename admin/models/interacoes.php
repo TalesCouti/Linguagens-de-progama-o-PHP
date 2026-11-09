@@ -42,34 +42,4 @@ class Interacoes
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function listarAvaliacoes(int $gameId): array
-    {
-        $stmt = $this->pdo->prepare(
-            'SELECT a.usuario_id, a.nota, a.comentario, a.atualizado_em, u.nome
-             FROM avaliacoes a INNER JOIN usuarios u ON u.id = a.usuario_id
-             WHERE a.game_id = ? ORDER BY a.atualizado_em DESC'
-        );
-        $stmt->execute([$gameId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function salvarAvaliacao(int $usuarioId, int $gameId, int $nota, string $comentario): bool
-    {
-        $comentario = trim($comentario);
-        if ($nota < 1 || $nota > 5 || mb_strlen($comentario) > 1000) {
-            return false;
-        }
-        $stmt = $this->pdo->prepare(
-            'INSERT INTO avaliacoes (usuario_id, game_id, nota, comentario)
-             VALUES (?, ?, ?, ?)
-             ON DUPLICATE KEY UPDATE nota = VALUES(nota), comentario = VALUES(comentario)'
-        );
-        return $stmt->execute([$usuarioId, $gameId, $nota, $comentario]);
-    }
-
-    public function removerAvaliacao(int $usuarioId, int $gameId): void
-    {
-        $stmt = $this->pdo->prepare('DELETE FROM avaliacoes WHERE usuario_id = ? AND game_id = ?');
-        $stmt->execute([$usuarioId, $gameId]);
-    }
 }

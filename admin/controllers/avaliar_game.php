@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../config/autenticacao.php';
 require_once __DIR__ . '/../models/games.php';
-require_once __DIR__ . '/../models/interacoes.php';
+require_once __DIR__ . '/../models/avaliacoes.php';
 
 exigirLogin('../../login.php');
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -18,13 +18,13 @@ if (!$id || !(new Game())->buscarGamePorId($id)) {
     http_response_code(404);
     exit('Jogo não encontrado.');
 }
-$interacoes = new Interacoes();
+$avaliacoes = new Avaliacao();
 if (($_POST['acao'] ?? '') === 'remover') {
-    $interacoes->removerAvaliacao((int) $_SESSION['usuario_id'], $id);
+    $avaliacoes->remover((int) $_SESSION['usuario_id'], $id);
 } elseif (($_POST['acao'] ?? '') === 'salvar') {
     $nota = filter_input(INPUT_POST, 'nota', FILTER_VALIDATE_INT);
     $comentario = $_POST['comentario'] ?? '';
-    if (!$nota || !is_string($comentario) || !$interacoes->salvarAvaliacao((int) $_SESSION['usuario_id'], $id, $nota, $comentario)) {
+    if (!$nota || !is_string($comentario) || !$avaliacoes->salvar((int) $_SESSION['usuario_id'], $id, $nota, $comentario)) {
         header('Location: ../../game.php?id=' . $id . '&avaliacao=invalida#avaliacoes');
         exit;
     }

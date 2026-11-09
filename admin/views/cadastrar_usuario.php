@@ -7,11 +7,13 @@ require_once __DIR__ . '/../models/usuarios.php';
 $mensagem = '';
 $nome = '';
 $email = '';
+$telefone = '';
 $tipo = 'user';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = trim((string) ($_POST['nome'] ?? ''));
     $email = trim((string) ($_POST['email'] ?? ''));
+    $telefone = trim((string) ($_POST['telefone'] ?? ''));
     $senhaInformada = (string) ($_POST['senha'] ?? '');
     $tipo = (string) ($_POST['tipo'] ?? 'user');
     $token = $_POST['csrf_token'] ?? null;
@@ -22,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $usuarioModel = new Usuario();
-        if (!$usuarioModel->cadastrarUsuario($nome, $email, $senhaInformada, $tipo)) {
+        if (!$usuarioModel->cadastrarUsuario($nome, $email, $senhaInformada, $tipo, $telefone ?: null)) {
             throw new RuntimeException('Preencha os dados corretamente. A senha deve ter pelo menos 8 caracteres.');
         }
 
@@ -86,6 +88,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <label for="senha">Senha</label>
                             <input id="senha" type="password" name="senha" minlength="8" autocomplete="new-password" required>
                             <p class="field-help">Use pelo menos 8 caracteres.</p>
+                        </div>
+                        <div class="field">
+                            <label for="telefone">Telefone</label>
+                            <input id="telefone" name="telefone" type="tel" maxlength="20" value="<?= htmlspecialchars($telefone, ENT_QUOTES, 'UTF-8') ?>">
                         </div>
                         <div class="field">
                             <label for="tipo">Tipo de usuário</label>
