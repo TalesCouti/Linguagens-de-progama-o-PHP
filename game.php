@@ -95,7 +95,7 @@ $tituloPagina = $game ? $game['titulo'] . ' | PlayStation Store' : 'Jogo não en
                         <p class="game-category"><?= h($game['categoria'] ?: 'Sem categoria') ?></p>
                         <h1><?= h($game['titulo']) ?></h1>
                         <p class="game-detail-description"><?= h($game['descricao'] ?: 'Uma nova experiência espera por você.') ?></p>
-                        <p class="rating-summary"><?= $media === null ? 'Ainda sem avaliações' : number_format($media, 1, ',', '.') . ' / 5 · ' . count($avaliacoes) . ' avaliação(ões)' ?></p>
+                        <p class="rating-summary"><?= $media === null ? 'Ainda sem avaliações' : number_format($media, 1, ',', '.') . ' / 5 · ' . count($avaliacoes) . (count($avaliacoes) === 1 ? ' avaliação' : ' avaliações') ?></p>
 
                         <?php if (($_GET['compra'] ?? '') === 'sucesso'): ?>
                             <div class="message" role="status">Compra realizada. O jogo está na sua biblioteca e o saldo foi atualizado.</div>
