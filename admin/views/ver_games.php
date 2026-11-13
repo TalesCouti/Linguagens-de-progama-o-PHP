@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/autenticacao.php';
+require_once __DIR__ . '/../config/navegacao.php';
 exigirAdministrador('../../login.php');
 
 require_once __DIR__ . '/../models/games.php';
@@ -34,6 +35,7 @@ function h(string $value): string
                 <a class="nav-link" href="gerenciar_taxonomia.php?tipo=categorias">Categorias</a>
                 <a class="nav-link" href="gerenciar_taxonomia.php?tipo=plataformas">Plataformas</a>
                 <a class="nav-link" href="gerenciar_avaliacoes.php">Avaliações</a>
+                <?= linkCarteiraComSaldo(null, false, '../../carteira.php') ?>
                 <a class="nav-link nav-primary" href="../../logout.php">Sair</a>
             </div>
         </nav>

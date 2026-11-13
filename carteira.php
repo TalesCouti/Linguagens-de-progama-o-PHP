@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/admin/config/autenticacao.php';
 require_once __DIR__ . '/admin/models/carteiras.php';
+require_once __DIR__ . '/admin/config/navegacao.php';
 
 exigirLogin('login.php?redirect=carteira.php');
 $carteira = new Carteira();
@@ -24,7 +25,7 @@ function h(string $valor): string { return htmlspecialchars($valor, ENT_QUOTES, 
     <div class="sony-ribbon" aria-hidden="true"><span>SONY</span></div>
     <header class="site-header"><nav class="nav" aria-label="Navegação principal">
         <a class="brand store-brand" href="index.php"><span class="brand-mark"><img src="admin/public/imagens/logo.png" alt=""></span><span>PlayStation <strong>Store</strong></span></a>
-        <div class="nav-links"><a class="nav-link" href="index.php#catalogo">Catálogo</a><a class="nav-link" href="meus_jogos.php">Meus jogos</a><a class="nav-link" href="wishlist.php">Wishlist</a><a class="nav-link nav-wallet" aria-current="page" href="carteira.php">Carteira</a><a class="nav-link nav-primary" href="logout.php">Sair</a></div>
+        <div class="nav-links"><a class="nav-link" href="index.php#catalogo">Catálogo</a><a class="nav-link" href="meus_jogos.php">Meus jogos</a><a class="nav-link" href="wishlist.php">Wishlist</a><?= linkCarteiraComSaldo($saldo, true) ?><a class="nav-link nav-primary" href="logout.php">Sair</a></div>
     </nav></header>
     <main class="container page" id="conteudo">
         <header class="page-header"><div><p class="eyebrow">Sua conta</p><h1 class="page-title">Minha carteira</h1><p class="page-intro">Adicione saldo e acompanhe suas movimentações.</p></div>

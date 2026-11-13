@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/autenticacao.php';
+require_once __DIR__ . '/../config/navegacao.php';
 exigirAdministrador('../../login.php');
 
 require_once __DIR__ . '/../models/usuarios.php';
@@ -56,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="nav-links">
                 <a class="nav-link" href="ver_games.php">Jogos</a>
                 <a class="nav-link" href="ver_usuarios.php">Usuários</a>
+                <?= linkCarteiraComSaldo(null, false, '../../carteira.php') ?>
                 <a class="nav-link nav-primary" href="../../logout.php">Sair</a>
             </div>
         </nav>

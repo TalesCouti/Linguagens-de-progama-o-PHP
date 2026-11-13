@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/admin/config/autenticacao.php';
 require_once __DIR__ . '/admin/models/interacoes.php';
+require_once __DIR__ . '/admin/config/navegacao.php';
 require_once __DIR__ . '/admin/config/imagens.php';
 exigirLogin('login.php?redirect=wishlist.php');
 $jogos = (new Interacoes())->listarWishlist((int) $_SESSION['usuario_id']);
@@ -18,7 +19,7 @@ function h(string $valor): string { return htmlspecialchars($valor, ENT_QUOTES, 
     <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
     <header class="site-header"><nav class="nav" aria-label="Navegação principal">
         <a class="brand store-brand" href="index.php"><span class="brand-mark"><img src="admin/public/imagens/logo.png" alt=""></span><span>PlayStation <strong>Store</strong></span></a>
-        <div class="nav-links"><a class="nav-link" href="index.php#catalogo">Catálogo</a><a class="nav-link" href="meus_jogos.php">Meus jogos</a><a class="nav-link nav-active" aria-current="page" href="wishlist.php">Wishlist</a><a class="nav-link nav-wallet" href="carteira.php">Carteira</a><a class="nav-link nav-primary" href="logout.php">Sair</a></div>
+        <div class="nav-links"><a class="nav-link" href="index.php#catalogo">Catálogo</a><a class="nav-link" href="meus_jogos.php">Meus jogos</a><a class="nav-link nav-active" aria-current="page" href="wishlist.php">Wishlist</a><?= linkCarteiraComSaldo() ?><a class="nav-link nav-primary" href="logout.php">Sair</a></div>
     </nav></header>
     <main class="container page" id="conteudo">
         <header class="page-header"><div><p class="eyebrow">Seus favoritos</p><h1 class="page-title">Wishlist</h1><p class="page-intro">Jogos que você quer acompanhar.</p></div><a class="button button-secondary" href="index.php#catalogo">Explorar catálogo</a></header>

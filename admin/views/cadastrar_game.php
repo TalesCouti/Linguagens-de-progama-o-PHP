@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/autenticacao.php';
+require_once __DIR__ . '/../config/navegacao.php';
 exigirAdministrador('../../login.php');
 
 require_once '../models/games.php';
@@ -55,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <header class="site-header">
         <nav class="nav" aria-label="Navegação administrativa">
             <a class="brand" href="../../index.php"><span class="brand-mark"><img src="../public/imagens/logo.png" alt=""></span> PlayStation</a>
-            <div class="nav-links"><a class="nav-link" href="ver_games.php">Voltar ao catálogo</a><a class="nav-link nav-primary" href="../../logout.php">Sair</a></div>
+            <div class="nav-links"><a class="nav-link" href="ver_games.php">Voltar ao catálogo</a><?= linkCarteiraComSaldo(null, false, '../../carteira.php') ?><a class="nav-link nav-primary" href="../../logout.php">Sair</a></div>
         </nav>
     </header>
 

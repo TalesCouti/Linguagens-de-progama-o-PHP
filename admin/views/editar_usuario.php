@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/autenticacao.php';
+require_once __DIR__ . '/../config/navegacao.php';
 exigirAdministrador('../../login.php');
 require_once __DIR__ . '/../models/usuarios.php';
 
@@ -34,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 function h(string $valor): string { return htmlspecialchars($valor, ENT_QUOTES, 'UTF-8'); }
 ?>
 <!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Editar usuário | PlayStation</title><link rel="stylesheet" href="../public/css/style.css"></head>
-<body><a class="skip-link" href="#conteudo">Ir para o conteúdo</a><header class="site-header"><nav class="nav" aria-label="Navegação administrativa"><a class="brand" href="../../index.php">PlayStation Store</a><div class="nav-links"><a class="nav-link" href="ver_usuarios.php">Usuários</a><a class="nav-link nav-primary" href="../../logout.php">Sair</a></div></nav></header>
+<body><a class="skip-link" href="#conteudo">Ir para o conteúdo</a><header class="site-header"><nav class="nav" aria-label="Navegação administrativa"><a class="brand" href="../../index.php">PlayStation Store</a><div class="nav-links"><a class="nav-link" href="ver_usuarios.php">Usuários</a><?= linkCarteiraComSaldo(null, false, '../../carteira.php') ?><a class="nav-link nav-primary" href="../../logout.php">Sair</a></div></nav></header>
 <main class="container page" id="conteudo"><div class="form-layout"><section><h1 class="page-title">Editar usuário</h1><p class="page-intro">Atualize os dados da conta.</p></section>
 <?php if (!$usuario): ?><div class="empty-state">Usuário não encontrado. <a href="ver_usuarios.php">Voltar</a></div><?php else: ?>
 <section class="form-card"><?php if ($erro !== ''): ?><div class="message message-error" role="alert"><?= h($erro) ?></div><?php endif; ?>

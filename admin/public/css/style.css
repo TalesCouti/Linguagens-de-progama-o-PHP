@@ -148,6 +148,21 @@ button, .button, .nav-link, .game-card { touch-action: manipulation; }
     transition: color 180ms ease, background-color 180ms ease;
 }
 .nav-link:hover, .nav-link[aria-current="page"] { background: var(--surface-2); color: var(--text); }
+.nav-wallet {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    font-variant-numeric: tabular-nums;
+}
+.nav-wallet-label { color: var(--subtle); font-size: 0.78rem; font-weight: 600; }
+.nav-wallet strong { color: var(--accent); font-weight: 800; }
+.storefront-page .nav-wallet { border-color: #c9d9f0; background: #edf4ff; }
+.storefront-page .nav-wallet:hover, .storefront-page .nav-wallet[aria-current="page"] { background: #dceafd; }
+.storefront-page .nav-wallet-label { color: #506488; }
+.storefront-page .nav-wallet strong { color: #005fb8; }
 .container { width: min(calc(100% - 32px), var(--container)); margin-inline: auto; }
 .page { padding: 56px 0 80px; }
 .hero {
@@ -442,6 +457,12 @@ input[type="file"]::file-selector-button { min-height: 36px; margin-right: 12px;
     .connection-status, .message { color: #004b93; }
 }
 
+@media (max-width: 1020px) {
+    .nav { padding-block: 8px; }
+    .nav-links { flex: 1 1 0; min-width: 0; flex-wrap: wrap; justify-content: flex-end; }
+    .nav-link { padding-inline: 10px; }
+}
+
 @media (max-width: 860px) {
     .wallet-layout { grid-template-columns: 1fr; }
     .game-detail { grid-template-columns: 1fr; }
@@ -469,6 +490,9 @@ input[type="file"]::file-selector-button { min-height: 36px; margin-right: 12px;
 @media (max-width: 620px) {
     .nav { min-height: 64px; }
     .nav-links .nav-link:not(.nav-primary):not(.nav-wallet) { display: none; }
+    .nav-links { gap: 6px; }
+    .nav-wallet { padding: 8px 10px; font-size: 0.82rem; }
+    .nav-wallet-label { display: none; }
     .hero h1 { font-size: clamp(3rem, 16vw, 4.8rem); }
     .hero-media, .hero-media img { min-height: 320px; }
     .section, .page { padding: 52px 0; }

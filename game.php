@@ -2,6 +2,7 @@
 require_once __DIR__ . '/admin/config/autenticacao.php';
 require_once __DIR__ . '/admin/models/games.php';
 require_once __DIR__ . '/admin/models/carteiras.php';
+require_once __DIR__ . '/admin/config/navegacao.php';
 require_once __DIR__ . '/admin/models/interacoes.php';
 require_once __DIR__ . '/admin/models/avaliacoes.php';
 require_once __DIR__ . '/admin/config/imagens.php';
@@ -60,12 +61,13 @@ $tituloPagina = $game ? $game['titulo'] . ' | PlayStation Store' : 'Jogo não en
                 <?php if (usuarioAutenticado()): ?>
                     <a class="nav-link" href="meus_jogos.php">Meus jogos</a>
                     <a class="nav-link" href="wishlist.php">Wishlist</a>
-                    <a class="nav-link nav-wallet" href="carteira.php">Carteira</a>
                 <?php endif; ?>
                 <?php if (usuarioAdministradorAutenticado()): ?>
                     <a class="nav-link" href="admin/views/ver_games.php">Painel</a>
+                    <?= linkCarteiraComSaldo($saldoCarteira) ?>
                     <a class="nav-link nav-primary" href="logout.php">Sair</a>
                 <?php elseif (usuarioAutenticado()): ?>
+                    <?= linkCarteiraComSaldo($saldoCarteira) ?>
                     <a class="nav-link nav-primary" href="logout.php">Sair</a>
                 <?php else: ?>
                     <a class="nav-link nav-primary" href="login.php<?= $game ? '?redirect=' . rawurlencode('game.php?id=' . (int) $game['id']) : '' ?>">Entrar</a>

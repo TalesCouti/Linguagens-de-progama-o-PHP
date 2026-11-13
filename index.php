@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/admin/config/autenticacao.php';
 require_once __DIR__ . '/admin/models/games.php';
+require_once __DIR__ . '/admin/config/navegacao.php';
 require_once __DIR__ . '/admin/config/imagens.php';
 
 iniciarSessaoSegura();
@@ -37,12 +38,13 @@ function h(string $value): string
                 <?php if (usuarioAutenticado()): ?>
                     <a class="nav-link" href="meus_jogos.php">Meus jogos</a>
                     <a class="nav-link" href="wishlist.php">Wishlist</a>
-                    <a class="nav-link nav-wallet" href="carteira.php">Carteira</a>
                 <?php endif; ?>
                 <?php if (usuarioAdministradorAutenticado()): ?>
                     <a class="nav-link" href="admin/views/ver_games.php">Painel</a>
+                    <?= linkCarteiraComSaldo() ?>
                     <a class="nav-link nav-primary" href="logout.php">Sair</a>
                 <?php elseif (usuarioAutenticado()): ?>
+                    <?= linkCarteiraComSaldo() ?>
                     <a class="nav-link nav-primary" href="logout.php">Sair</a>
                 <?php else: ?>
                     <a class="nav-link" href="cadastro.php">Criar conta</a>
