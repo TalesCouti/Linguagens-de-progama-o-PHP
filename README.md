@@ -40,51 +40,9 @@ Outras funcionalidades: upload de imagem, página de detalhes, controle de estoq
 
 ## Diagrama de classes UML
 
-```mermaid
-classDiagram
-    class Usuario {
-        +listarUsuarios()
-        +buscarUsuarioPorId(id)
-        +cadastrarUsuario(dados)
-        +editarUsuario(dados)
-        +deletarUsuario(id)
-    }
-    class Game {
-        +listarGames()
-        +buscarGamePorId(id)
-        +cadastrarGame()
-        +editarGame()
-        +deletarGame()
-        +comprarGame(id, usuarioId)
-    }
-    class Categoria {
-        +listar()
-        +buscar(id)
-        +criar(nome, descricao)
-        +atualizar(id, nome, descricao)
-        +excluir(id)
-    }
-    class Plataforma {
-        +listar()
-        +buscar(id)
-        +criar(nome, descricao)
-        +atualizar(id, nome, descricao)
-        +excluir(id)
-    }
-    class Avaliacao {
-        +listarPorJogo(gameId)
-        +buscar(usuarioId, gameId)
-        +salvar(usuarioId, gameId, nota, comentario)
-        +remover(usuarioId, gameId)
-    }
-    class Taxonomia
-    Taxonomia <|-- Categoria
-    Taxonomia <|-- Plataforma
-    Usuario "1" --> "*" Avaliacao
-    Game "1" --> "*" Avaliacao
-    Categoria "1" --> "*" Game
-    Plataforma "1" --> "*" Game
-```
+![Diagrama UML com atributos, métodos e relações das classes](docs/diagrama-classes.svg)
+
+[Fonte editável em Mermaid](docs/diagrama-classes.md) · [Imagem PNG](docs/diagrama-classes.png)
 
 ## Modelo do banco de dados
 
