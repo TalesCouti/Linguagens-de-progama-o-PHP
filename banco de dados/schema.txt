@@ -1,3 +1,5 @@
+-- Instalação nova: cria todas as tabelas e os dados iniciais.
+-- Não execute novamente sobre um banco que já contém estas tabelas.
 CREATE DATABASE IF NOT EXISTS loja_games CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE loja_games;
 
@@ -85,10 +87,10 @@ CREATE TABLE avaliacoes (
     FOREIGN KEY (game_id) REFERENCES games(id) ON DELETE CASCADE,
     CONSTRAINT chk_avaliacoes_nota CHECK (nota BETWEEN 1 AND 5)
 );
-INSERT INTO usuarios (nome, email, senha, tipo) VALUES
-('evandro', 'evandro@gmail.com', '$2y$10$X6vqZQzbunoybyXHzDT1Y.0goaHknU1vg8cWOQH7dHZwzoEFXXCWG', 'admin'),
-('pedro', 'pedro@gmail.com', '$2y$10$v3OifoBkYcA8QTwUR1OUlO//Yxs1UThRUOHXcFWfOQ4OT.ojUknJu', 'user');
-INSERT INTO carteiras (usuario_id) SELECT id FROM usuarios;
+-- Senhas de teste: admin123 e user12345, armazenadas com password_hash().
+INSERT INTO usuarios (nome, email, telefone, senha, tipo) VALUES
+('evandro', 'evandro@gmail.com', '11999999999', '$2y$10$X6vqZQzbunoybyXHzDT1Y.0goaHknU1vg8cWOQH7dHZwzoEFXXCWG', 'admin'),
+('pedro', 'pedro@gmail.com', '11888888888', '$2y$10$v3OifoBkYcA8QTwUR1OUlO//Yxs1UThRUOHXcFWfOQ4OT.ojUknJu', 'user');
 INSERT INTO categorias (nome, descricao) VALUES
 ('Ação', 'Jogos de combate e desafios em tempo real'),
 ('Ação,RPG', 'Ação com progressão de personagem'),
@@ -98,5 +100,32 @@ INSERT INTO plataformas (nome, descricao) VALUES
 ('PlayStation 5', 'Jogos para PS5');
 INSERT INTO games (titulo, descricao, preco, estoque, categoria, plataforma, imagem) VALUES
 ('Bloodborne', 'Um jogo souls like.', 114.90, 10, 'Ação,RPG', 'PlayStation 4', 'bloodborne.png'),
-('God of War', 'Jogo de ação com Kratos em uma jornada épica.', 249.99, 15, 'Ação', 'PlayStation 5', 'gow.png'),
+('God of War', 'Jogo de ação com Kratos em uma jornada épica.', 249.99, 14, 'Ação', 'PlayStation 5', 'gow.png'),
 ('The Last of Us', 'Jogo de sobrevivência em 3° pessoa em um apocalipse.', 131.05, 20, 'Aventura, Ação', 'PlayStation 5', 'TheLastofUs.png');
+
+-- Pedro recebeu R$ 300,00, comprou God of War por R$ 249,99 e ficou com R$ 50,01.
+INSERT INTO carteiras (usuario_id, saldo)
+SELECT id, CASE WHEN email = 'pedro@gmail.com' THEN 50.01 ELSE 0.00 END
+FROM usuarios;
+
+INSERT INTO movimentacoes_carteira (usuario_id, tipo, valor, descricao)
+SELECT id, 'recarga', 300.00, 'Saldo adicionado'
+FROM usuarios WHERE email = 'pedro@gmail.com';
+INSERT INTO movimentacoes_carteira (usuario_id, tipo, valor, descricao)
+SELECT id, 'compra', 249.99, 'Compra: God of War'
+FROM usuarios WHERE email = 'pedro@gmail.com';
+
+INSERT INTO compras (usuario_id, game_id, titulo, preco)
+SELECT u.id, g.id, g.titulo, g.preco
+FROM usuarios u CROSS JOIN games g
+WHERE u.email = 'pedro@gmail.com' AND g.titulo = 'God of War';
+
+INSERT INTO wishlist (usuario_id, game_id)
+SELECT u.id, g.id
+FROM usuarios u CROSS JOIN games g
+WHERE u.email = 'pedro@gmail.com' AND g.titulo = 'Bloodborne';
+
+INSERT INTO avaliacoes (usuario_id, game_id, nota, comentario)
+SELECT u.id, g.id, 5, 'Aventura envolvente e combate excelente.'
+FROM usuarios u CROSS JOIN games g
+WHERE u.email = 'pedro@gmail.com' AND g.titulo = 'God of War';

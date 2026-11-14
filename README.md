@@ -52,7 +52,7 @@ Sistema web de loja de jogos com catálogo público, cadastro de clientes, auten
 
 ## Modelo do banco de dados
 
-O script completo, com banco, tabelas, chaves e dados iniciais, está em [`banco de dados/schema.txt`](banco%20de%20dados/schema.txt).
+O script completo, com banco, nove tabelas, chaves e `INSERT` para todas elas, está em [`banco de dados/schema.txt`](banco%20de%20dados/schema.txt). Os dados de exemplo incluem dois usuários, três jogos, categorias, plataformas, carteiras, movimentações, uma compra, um item na wishlist e uma avaliação.
 
 ```mermaid
 erDiagram
@@ -74,10 +74,10 @@ Tabelas principais: `usuarios`, `games`, `categorias`, `plataformas` e `avaliaco
 
 1. Instale PHP 8, Apache e MySQL, por exemplo com XAMPP. Coloque o projeto em `htdocs/loja_games`.
 2. Copie `admin/config/database.local.example.php` para `admin/config/database.local.php` e informe a senha local do MySQL. Também é possível usar a variável de ambiente `DB_PASSWORD`. O arquivo local é ignorado pelo Git.
-3. Em uma instalação nova, importe `banco de dados/schema.txt` no MySQL. Em um banco anterior, execute as migrações `migracao_interacoes.sql`, `migracao_carteira.sql` e `migracao_catalogo.sql`, nessa ordem. Se a coluna `telefone` já existir, pule somente o primeiro `ALTER TABLE` da migração de interações.
+3. Em uma instalação nova, importe apenas `banco de dados/schema.txt` no MySQL. O arquivo já contém todas as tabelas e os dados iniciais. Em um banco anterior, execute as migrações `migracao_interacoes.sql`, `migracao_carteira.sql` e `migracao_catalogo.sql`, nessa ordem. Se a coluna `telefone` já existir, pule somente o primeiro `ALTER TABLE` da migração de interações.
 4. Abra `http://localhost/loja_games/`.
 
-**Conta de teste:** `evandro@gmail.com` / `admin123` (administrador). A senha inicial deve ser alterada em uma instalação compartilhada.
+**Contas de teste em uma instalação nova:** `evandro@gmail.com` / `admin123` (administrador) e `pedro@gmail.com` / `user12345` (cliente). Pedro começa com R$ 50,01 na carteira e uma compra no histórico. As senhas iniciais devem ser alteradas em uma instalação compartilhada.
 
 ## Verificação
 

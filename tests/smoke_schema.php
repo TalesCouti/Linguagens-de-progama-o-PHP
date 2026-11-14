@@ -34,8 +34,29 @@ try {
         || !password_verify('user12345', $usuarios['pedro@gmail.com'] ?? '')) {
         throw new RuntimeException('As contas de teste não autenticam.');
     }
-    if ((int) $servidor->query('SELECT COUNT(*) FROM games')->fetchColumn() !== 3) {
-        throw new RuntimeException('O schema não inseriu os jogos de teste.');
+    $quantidades = [
+        'usuarios' => 2,
+        'carteiras' => 2,
+        'movimentacoes_carteira' => 2,
+        'categorias' => 3,
+        'plataformas' => 2,
+        'games' => 3,
+        'compras' => 1,
+        'wishlist' => 1,
+        'avaliacoes' => 1,
+    ];
+    foreach ($quantidades as $tabela => $esperado) {
+        if ((int) $servidor->query('SELECT COUNT(*) FROM `' . $tabela . '`')->fetchColumn() !== $esperado) {
+            throw new RuntimeException('Dados iniciais incompletos em ' . $tabela . '.');
+        }
+    }
+    $saldo = $servidor->query(
+        "SELECT c.saldo FROM carteiras c JOIN usuarios u ON u.id = c.usuario_id
+         WHERE u.email = 'pedro@gmail.com'"
+    )->fetchColumn();
+    $estoque = $servidor->query("SELECT estoque FROM games WHERE titulo = 'God of War'")->fetchColumn();
+    if ($saldo !== '50.01' || (int) $estoque !== 14) {
+        throw new RuntimeException('Saldo ou estoque inicial não corresponde à compra de exemplo.');
     }
     echo "Schema novo, relações e dados iniciais: OK\n";
 } finally {
