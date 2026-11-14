@@ -36,7 +36,13 @@ Sistema web de loja de jogos com catálogo público, cadastro de clientes, auten
 | `Plataforma` | Administração | Lista e seleção de jogos | Administração | Administração |
 | `Avaliacao` | Cliente ou administração | Página do jogo e administração | Cliente ou administração | Cliente ou administração |
 
-Outras funcionalidades: upload de imagem, página de detalhes, controle de estoque, wishlist, biblioteca, carteira e histórico de movimentações.
+## Funcionalidades implementadas
+
+- Catálogo público carregado do MySQL, com páginas de detalhes e indicação de estoque.
+- Cadastro de cliente com nome, e-mail, telefone e senha; login, logout e proteção da administração por sessão.
+- CRUD administrativo de usuários, jogos, categorias, plataformas e avaliações.
+- Upload de capa para os jogos, wishlist, biblioteca de compras e avaliação com nota e comentário.
+- Carteira com recarga, histórico e saldo visível no cabeçalho. A compra exige saldo e estoque e registra as alterações em uma transação.
 
 ## Diagrama de classes UML
 
@@ -73,7 +79,16 @@ Tabelas principais: `usuarios`, `games`, `categorias`, `plataformas` e `avaliaco
 
 **Conta de teste:** `evandro@gmail.com` / `admin123` (administrador). A senha inicial deve ser alterada em uma instalação compartilhada.
 
-Para conferir as cinco classes no banco local, execute `php tests/smoke_crud.php`. O teste usa uma transação e desfaz os registros temporários ao terminar.
+## Verificação
+
+- `php tests/smoke_schema.php`: importa o SQL em um banco temporário e verifica tabelas, relações, contas e jogos de exemplo.
+- `php tests/smoke_crud.php`: testa o CRUD das cinco classes e desfaz os registros temporários.
+- `php tests/smoke_compra.php`: verifica saldo insuficiente, compra, desconto, estoque e biblioteca com registros temporários.
+- `python tests/smoke_web.py`: verifica cadastro, login, wishlist, avaliação e recarga no navegador. Requer Chrome e o pacote Python Playwright. A conta temporária é removida ao final.
+
+## Apresentação e envio
+
+Abra a [apresentação de sete telas](docs/apresentacao.html) ou o [PDF](docs/apresentacao.pdf) e use o [roteiro de demonstração](docs/roteiro-apresentacao.md). O [texto com o link para entregar ao professor](docs/entrega-professor.md) está pronto para copiar; nenhum envio foi realizado.
 
 ## Capturas das principais telas
 
