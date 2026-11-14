@@ -16,5 +16,5 @@ function linkCarteiraComSaldo(?string $saldo = null, bool $paginaAtual = false, 
 
     return '<a class="nav-link nav-wallet" href="' . htmlspecialchars($caminhoCarteira, ENT_QUOTES, 'UTF-8') . '"' . $paginaAtualAtributo
         . ' aria-label="Carteira, saldo disponível: ' . $valorSeguro . '">'
-        . '<span class="nav-wallet-label">Saldo</span><strong>' . $valorSeguro . '</strong></a>';
+        . '<strong>' . $valorSeguro . '</strong></a>';
 }
